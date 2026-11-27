@@ -1,59 +1,78 @@
 # Game.log notes
 
-What is known about the Star Citizen `Game.log` for Haulmate. These are hypotheses taken from an existing open-source parser ([NOVA AI](https://github.com/0zzyt0/NOVA-AI), MIT, `core/gamelog.py`) and community tools. Confirm every pattern against real fixtures before relying on it.
+What is known about the Star Citizen `Game.log` for Haulmate. Patterns marked **confirmed** were checked against real logs from builds 11135423 (Feb 2026) to 13220821 (Nov 2026), about 140 sessions. The fixtures in `tests/fixtures/` are anonymised excerpts of two of them. The first hypotheses came from [NOVA AI](https://github.com/0zzyt0/NOVA-AI) (MIT, `core/gamelog.py`).
 
 ## File and lifecycle
 
-- Location: `<install>\StarCitizen\LIVE\Game.log` (also `PTU`, `TECH-PREVIEW`). Default install is under `C:\Program Files\Roberts Space Industries\`.
-- The game starts a new `Game.log` on each launch; previous logs go to `LIVE\logbackups\`.
-- Each record starts with an ISO timestamp: `^<YYYY-MM-DDTHH:MM:SS(.fff)Z?>`. A record can span several lines; a new record starts at the next timestamp.
-- The game writes while you read: the last line can be half-written. Buffer until a newline.
+- Location: `<install>\StarCitizen\LIVE\Game.log` (also `PTU`, `TECH-PREVIEW`). Previous logs go to `LIVE\logbackups\` as `Game Build(<build>) <date> (<time>).log`. **Confirmed.**
+- The game starts a new `Game.log` on each launch. Haulmate detects this when the file shrinks or its first 256 bytes change.
+- The game writes while you read: the last line can be half-written. Haulmate buffers until a newline.
 - Contracts accepted in a previous game session live in the backups, not the current log.
+
+## Records
+
+**Confirmed:** every physical line starts with a timestamp `<YYYY-MM-DDTHH:MM:SS.fffZ>`, including the continuation lines of a multi-line record. A record starts when the timestamp is followed by ` [Level]` or ` <Tag>`. Anything else after the timestamp is a continuation:
+
+```text
+<2026-07-14T16:22:44.620Z> [Notice] <SHUDEvent_OnNotification> Added notification "You have joined channel 'Argo RAFT : Player1'.
+<2026-07-14T16:22:44.620Z> : " [28] to queue. New queue size: 1, MissionId: [00000000-…], ObjectiveId: [] [Team_CoreGameplayFeatures][Missions][Comms]
+<2026-07-14T16:22:44.620Z>    "You have joined channel 'Argo RAFT : Player1'.
+```
+
+The third line is a dump of the notification queue, repeated many times. It is not a new record and must not be parsed as one.
 
 ## Notifications
 
-Most gameplay messages arrive as HUD notifications:
-
 ```text
-Added notification "<text>" [<id>]
+Added notification "<text>" [<id>] to queue. New queue size: <n>, MissionId: [<uuid>], ObjectiveId: [<id>]
 ```
 
-NOVA extracts the text with `Added notification\s+"(.*?)(?:"\s*\[\d+\]|"\s*MissionId\b|"\s*$|$)` (dot matches newlines).
+**Confirmed:** `MissionId` and `ObjectiveId` are on the same record, which ties notifications to contracts. Non-mission notifications use the all-zero UUID.
 
-Known notification texts (English client):
+| Text                                                                    | Event                | Status                                                         |
+| ----------------------------------------------------------------------- | -------------------- | -------------------------------------------------------------- |
+| `Contract Accepted:  <title>: ` (two spaces)                            | `ContractAccepted`   | confirmed                                                      |
+| `Contract Complete: <title>: `                                          | `ContractCompleted`  | confirmed                                                      |
+| `Contract Failed: <title>: `                                            | `ContractFailed`     | not seen for hauling                                           |
+| `Contract Withdrawn: <title>: `                                         | `ContractAbandoned`  | not seen for hauling                                           |
+| `New Objective: Deliver <done>/<total> SCU of <commodity> to <place>: ` | `ObjectiveAdded`     | confirmed, but see below                                       |
+| `Objective Complete: Deliver 3/3 SCU of Carbon to Everus Harbor`        | `ObjectiveCompleted` | confirmed in older builds                                      |
+| `Awarded <n> aUEC: `                                                    | `PayoutReceived`     | confirmed until build 11218823; **not logged in newer builds** |
+| `You have joined channel '<ship> : <owner>'.`                           | `ShipBoarded`        | confirmed                                                      |
+| `You have left the channel '<ship> : <owner>'.`                         | `ShipLeft`           | confirmed                                                      |
 
-| Pattern                                                  | Meaning                    |
-| -------------------------------------------------------- | -------------------------- |
-| `^Contract Accepted:\s*(.*)`                             | Contract accepted, title   |
-| `^Contract Complete:\s*(.*)`                             | Contract completed         |
-| `^Contract Failed:\s*(.*)`                               | Contract failed            |
-| `^Contract Withdrawn:\s*(.*)`                            | Contract withdrawn         |
-| `^Contract Shared:\s*(.*)`                               | Contract shared with party |
-| `^New Objective:\s*(.*)`                                 | New objective text         |
-| `^Objective Complete:\s*(.*)`                            | Objective completed        |
-| `^Quantum Travel Calibration Complete$`                  | QT calibration done        |
-| `^(?:A )?Refinery Work Order has been Completed at (.+)` | Refinery order ready       |
+### Objective notifications are incomplete
 
-Hauling objectives are expected to look like `Deliver 0/6 SCU of Ship Ammunition to Stanton System` (seen on the HUD). Whether pickups and counter updates (`3/6`) are logged is an open question.
+**Confirmed:** `New Objective: Deliver …` is only logged for some contracts, apparently the one being tracked in the HUD. Across all sessions, only 76 of 181 completed hauling contracts had one. Pickups are never logged as text, and partial counters (`3/6`) are not logged either.
+
+So the SCU amount of a contract is often not in the log. Haulmate shows it when the log has it and asks the player otherwise.
+
+## Mission records
+
+These come with every contract and are the reliable source.
+
+| Pattern                                                                                                                                                                     | Event                                                        | Status    |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ | --------- |
+| `<CLocalMissionPhaseMarker::CreateMarker> … missionId [<uuid>], generator name [<gen>], contract [<name>], … objectiveId [pickup_<uuid>_<n>] … position [x: …, y: …, z: …]` | `ObjectiveMarkerCreated`                                     | confirmed |
+| `<ObjectiveUpserted> … mission_id <uuid> - objective_id dropoff_… - state MISSION_OBJECTIVE_STATE_COMPLETED`                                                                | `ObjectiveCompleted`                                         | confirmed |
+| `<EndMission> Ending mission for player. MissionId[<uuid>] … CompletionType[Complete\|Fail\|Abandon\|Deactivate]`                                                           | `ContractCompleted` / `ContractFailed` / `ContractAbandoned` | confirmed |
+
+- Objective ids are `pickup_<uuid>_<n>` and `dropoff_<uuid>_<n>` (older builds: `dropoff_<uuid>_<n>_<m>`).
+- The contract name encodes the shape: `…_AtoB`, `…_SingleToMulti4`, `…_Multi3ToSingle`, and usually the commodity, e.g. `RedWind_Pyro_SmallGrade_Solar_CFP_StationToOutpost_Hydrogen_CargoHauling_SingleToMulti4`.
+- Hauling generators seen: `RedWind_Hauling`, `Covalex_Hauling`, `LingFamilyHauling_Hauling`, `VisitingIasi` (Iasi contracts with `HaulCargo` in the name).
+- Marker positions are relative to the body or station zone. **Confirmed** stable across sessions for the same place, so a position identifies a place. Haulmate keeps a table of positions seen at named drop-offs (`src/data/known-places.json`) to name pickups, which have no text. With the current table about 91 % of pickups resolve.
 
 ## Location, ship and travel
 
-| Pattern                                                                         | Meaning                                                                                |
-| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `requested inventory for Location\[([^\]]+)\]`                                  | Current location (inventory request)                                                   |
-| `Location\[([^\]]+)\]`                                                          | Location id in other records                                                           |
-| `selected point (\S+) as their destination`                                     | Quantum travel destination selected                                                    |
-| `Vehicle: (?P<cls>[A-Za-z0-9_]+?)_(?P<vid>\d{9,}), Interactor: (?P<who>\d{9,})` | Boarded or interacted with a ship; `cls` is the internal ship class (e.g. `CRUS_C2_…`) |
-| `\b([A-Z]{3,5}_[A-Za-z0-9_]+?)_(\d{9,})\b`                                      | Generic vehicle class + id                                                             |
-| `(?i)^(?:loc_)?rs_ext_([a-z]+)-([a-z]+)_jp\d*$`                                 | Jump point id between two systems                                                      |
-| `(?i)^rr_jp_([a-z]+?)(stanton\|pyro\|nyx\|castra\|magnus\|terra)$`              | Jump point station                                                                     |
-| `<CSCItemDockingTube::OnSetTubeState> …Station_DockingTube… Tube opened:`       | Docking tube opened (docked at a station)                                              |
-| `Loading screen for (\w+) : \w+ closed after ([\d.]+) seconds`                  | Loading finished                                                                       |
+| Pattern                                                                      | Event                        | Status    |
+| ---------------------------------------------------------------------------- | ---------------------------- | --------- |
+| `requested inventory for Location[<code>]`                                   | `LocationChanged`            | confirmed |
+| `<AccountLoginCharacterStatus_Character> Character: … name <handle> - state` | `PlayerIdentified`           | confirmed |
+| `selected point <id> as their destination`                                   | `QuantumDestinationSelected` | confirmed |
 
-## Money
+Location codes are structured: `RR_P6_LEO` (rest stop in low orbit of Pyro VI, Ruin Station), `RR_P2_L4` (Pyro II L4, Checkmate), `RR_JP_PyroStanton` (Stanton Gateway in Pyro), `Pyro4_Outpost_…`, `Stanton1_Lorville`, `Stanton3b_ArcCorp_Area056`. The body can be read from the code.
 
-- Contract payouts: confirm with fixtures whether the paid amount appears in the log (for example in a notification after `Contract Complete`).
-- Shop purchases: `SendShopBuyRequest>.*?client_price\[([\d.]+)\].*?itemName\[([^\]]+)\]` and `RmShopFlowResponse>.*?result\[(\w+)\]`.
+The ship comes from the party voice channel the game opens when you board: `'<Manufacturer> <Model> : <owner>'`. Only channels owned by the local player count as the current ship.
 
 ## Localisation
 
@@ -61,4 +80,4 @@ With a translated client the notification texts are translated. Match through th
 
 ## Privacy
 
-The log contains other players' names and ids. Anonymise fixtures and never send log content anywhere.
+The log contains player handles, account ids and entity ids. `scripts/anonymise-log.js` keeps only the records Haulmate needs and replaces names and ids. Review its output before committing a fixture.
