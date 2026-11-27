@@ -1,0 +1,37 @@
+name: Bug report
+description: Something does not work as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for the report. Please anonymise any log excerpt (player names, account and entity ids) before pasting it.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you did, what you expected and what you got.
+    validations:
+      required: true
+  - type: textarea
+    id: log-excerpt
+    attributes:
+      label: Anonymised Game.log excerpt
+      description: The lines around the problem. Remove names and ids first.
+      render: text
+  - type: input
+    id: game-version
+    attributes:
+      label: Star Citizen version
+      placeholder: e.g. 4.4.0 LIVE
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and version
+      placeholder: e.g. Chrome 142, Edge 142
+    validations:
+      required: true
+  - type: input
+    id: haulmate-version
+    attributes:
+      label: Haulmate version
+      description: Shown in the footer.

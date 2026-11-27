@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Haulmate mockup · Main</title>
+<link rel="stylesheet" href="fonts/unbounded/500.css">
+<link rel="stylesheet" href="fonts/unbounded/600.css">
+<link rel="stylesheet" href="fonts/unbounded/700.css">
+<link rel="stylesheet" href="fonts/hanken-grotesk/400.css">
+<link rel="stylesheet" href="fonts/hanken-grotesk/500.css">
+<link rel="stylesheet" href="fonts/hanken-grotesk/600.css">
+<link rel="stylesheet" href="fonts/hanken-grotesk/700.css">
+<link rel="stylesheet" href="fonts/martian-mono/400.css">
+<link rel="stylesheet" href="fonts/martian-mono/500.css">
+<style>
+
+body{margin:0;background:#06080C}
+a{color:#FFB37A}a:hover{color:#FFD2AE}
+
+</style>
+</head>
+<body>
+
+
+<div style="--acc: #FF7A1A; --earn: #4ADE80; --blur: 18px; position: relative; overflow: hidden; min-height: 100vh; box-sizing: border-box; padding: 32px 24px 48px; font-family: 'Hanken Grotesk', system-ui, sans-serif; color: #F3F4F7; background: radial-gradient(900px 600px at 85% -10%, rgba(255,122,26,0.22), transparent 60%), radial-gradient(700px 500px at -5% 105%, rgba(255,90,20,0.16), transparent 60%), linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px) 0 0 / 48px 48px, linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px) 0 0 / 48px 48px, #06080C">
+<div aria-hidden="true" style="position: absolute; width: 560px; height: 560px; border-radius: 50%; top: 200px; left: 36%; background: radial-gradient(circle, rgba(255,122,26,0.35), transparent 65%); filter: blur(40px)"></div>
+<div aria-hidden="true" style="position: absolute; width: 420px; height: 420px; border-radius: 50%; top: 980px; right: 6%; background: radial-gradient(circle, rgba(255,170,90,0.22), transparent 65%); filter: blur(50px)"></div>
+
+<div style="position: relative; max-width: 1392px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<div style="display: flex; align-items: center; gap: 14px">
+<div style="width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; background: linear-gradient(150deg, rgba(255,122,26,0.35), rgba(255,122,26,0.08)); border: 1px solid rgba(255,160,90,0.45); box-shadow: 0 0 24px rgba(255,122,26,0.35), inset 0 1px 0 rgba(255,255,255,0.25)">
+<svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFD2AE" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l8.5 5v10L12 22l-8.5-5V7z"></path><path d="M3.5 7L12 12l8.5-5"></path><path d="M12 12v10"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h1 style="margin: 0; font-family: Unbounded, sans-serif; font-size: 22px; font-weight: 700; letter-spacing: 0.04em">HAULMATE</h1>
+<p style="margin: 0; font-size: 14px; color: #A7AFBD">Reads your Game.log live and plans the best cargo route</p>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; font-size: 13px; background: rgba(74,222,128,0.10); border: 1px solid rgba(74,222,128,0.35); backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur))">
+<span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 50%; background: #4ADE80; box-shadow: 0 0 10px #4ADE80"></span>
+<span style="color: #BBF7D0; font-weight: 700">LIVE</span><span style="color: #A7AFBD">Game.log</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; font-size: 13px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur))">
+<span style="color: #A7AFBD">System</span><span style="font-weight: 600">Pyro</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; font-size: 13px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur))">
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFB37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>
+<span style="font-weight: 600">Ruin Station</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; font-size: 13px; background: rgba(255,122,26,0.12); border: 1px solid rgba(255,160,90,0.40); backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur))">
+<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFB37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14l9-3 2-7 2 7 7 3-7 2-2 6-2-6z"></path></svg>
+<span style="font-weight: 600">Gatac Railen</span><span style="color: #FFD2AE; font-family: 'Martian Mono', monospace; font-size: 12px">320 SCU</span>
+</div>
+</div>
+</header>
+
+<section aria-label="Route summary" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px">
+<div style="padding: 18px 20px; border-radius: 18px; background: linear-gradient(160deg, rgba(255,255,255,0.09), rgba(255,255,255,0.025)); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(var(--blur)) saturate(140%); -webkit-backdrop-filter: blur(var(--blur)) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 18px 50px rgba(0,0,0,0.45)">
+<p style="margin: 0 0 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: #A7AFBD">ROUTE PAYOUT</p>
+<p style="margin: 0; font-family: Unbounded, sans-serif; font-size: 24px; font-weight: 600; color: var(--acc)">375,700 <span style="font-size: 13px; color: #FFD2AE">aUEC</span></p>
+</div>
+<div style="padding: 18px 20px; border-radius: 18px; background: linear-gradient(160deg, rgba(255,255,255,0.09), rgba(255,255,255,0.025)); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(var(--blur)) saturate(140%); -webkit-backdrop-filter: blur(var(--blur)) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 18px 50px rgba(0,0,0,0.45)">
+<p style="margin: 0 0 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: #A7AFBD">DISTANCE</p>
+<p style="margin: 0; font-family: Unbounded, sans-serif; font-size: 24px; font-weight: 600">142.0 <span style="font-size: 13px; color: #A7AFBD">Gm · 4 QT · 1 jump</span></p>
+</div>
+<div style="padding: 18px 20px; border-radius: 18px; background: linear-gradient(160deg, rgba(255,255,255,0.09), rgba(255,255,255,0.025)); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(var(--blur)) saturate(140%); -webkit-backdrop-filter: blur(var(--blur)) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 18px 50px rgba(0,0,0,0.45)">
+<p style="margin: 0 0 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: #A7AFBD">ETA</p>
+<p style="margin: 0; font-family: Unbounded, sans-serif; font-size: 24px; font-weight: 600">~38 <span style="font-size: 13px; color: #A7AFBD">min incl. loading</span></p>
+</div>
+<div style="padding: 18px 20px; border-radius: 18px; background: linear-gradient(160deg, rgba(74,222,128,0.16), rgba(74,222,128,0.04)); border: 1px solid rgba(74,222,128,0.38); backdrop-filter: blur(var(--blur)) saturate(140%); -webkit-backdrop-filter: blur(var(--blur)) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.16), 0 18px 50px rgba(0,0,0,0.45)">
+<p style="margin: 0 0 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: #BBF7D0">EARNED THIS SESSION</p>
+<p style="margin: 0; font-family: Unbounded, sans-serif; font-size: 24px; font-weight: 600; color: var(--earn)">212,400 <span style="font-size: 13px; color: #BBF7D0">aUEC · 3 jobs</span></p>
+</div>
+</section>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+<div style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<section aria-label="Active contracts" style="display: flex; flex-direction: column; gap: 14px; padding: 20px; border-radius: 22px; background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(var(--blur)) saturate(140%); -webkit-backdrop-filter: blur(var(--blur)) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 24px 60px rgba(0,0,0,0.5)">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 style="margin: 0; font-family: Unbounded, sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 0.03em">Active contracts</h2>
+<span style="font-size: 12px; color: #A7AFBD">4 · 336 SCU</span>
+</div>
+
+<article style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: 16px; background: rgba(8,10,14,0.45); border: 1px solid rgba(255,255,255,0.10)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="font-family: 'Martian Mono', monospace; font-size: 11px; padding: 3px 8px; border-radius: 8px; color: #1A0E04; background: var(--acc); font-weight: 500">C1</span>
+<span style="font-weight: 600; font-size: 15px">Pressurized Ice</span>
+</div>
+<span style="font-family: 'Martian Mono', monospace; font-size: 12px; color: #FFD2AE">128 SCU</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #D5DAE3; flex-wrap: wrap">
+<span>Ruin Station</span>
+<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFB37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+<span>Orbituary</span>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px">
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,255,255,0.06); color: #D5DAE3; border: 1px solid rgba(255,255,255,0.14)">To load · 0/128</span>
+<span style="font-weight: 600; color: #FFB37A">142,500 aUEC</span>
+</div>
+</article>
+
+<article style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: 16px; background: rgba(8,10,14,0.45); border: 1px solid rgba(255,255,255,0.10)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="font-family: 'Martian Mono', monospace; font-size: 11px; padding: 3px 8px; border-radius: 8px; color: #1A0E04; background: var(--acc); font-weight: 500">C2</span>
+<span style="font-weight: 600; font-size: 15px">Processed Food</span>
+</div>
+<span style="font-family: 'Martian Mono', monospace; font-size: 12px; color: #FFD2AE">96 SCU</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #D5DAE3; flex-wrap: wrap">
+<span>Checkmate</span>
+<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFB37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+<span>Patch City</span>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px">
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,255,255,0.06); color: #D5DAE3; border: 1px solid rgba(255,255,255,0.14)">To load · 0/96</span>
+<span style="font-weight: 600; color: #FFB37A">98,000 aUEC</span>
+</div>
+</article>
+
+<article style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: 16px; background: rgba(8,10,14,0.45); border: 1px solid rgba(255,255,255,0.10)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="font-family: 'Martian Mono', monospace; font-size: 11px; padding: 3px 8px; border-radius: 8px; color: #1A0E04; background: var(--acc); font-weight: 500">C3</span>
+<span style="font-weight: 600; font-size: 15px">Scrap</span>
+</div>
+<span style="font-family: 'Martian Mono', monospace; font-size: 12px; color: #FFD2AE">64 SCU</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #D5DAE3; flex-wrap: wrap">
+<span>Ruin Station</span>
+<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFB37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+<span>Checkmate</span>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px">
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,255,255,0.06); color: #D5DAE3; border: 1px solid rgba(255,255,255,0.14)">To load · 0/64</span>
+<span style="font-weight: 600; color: #FFB37A">61,200 aUEC</span>
+</div>
+</article>
+
+<article style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: 16px; background: rgba(8,10,14,0.45); border: 1px solid rgba(255,255,255,0.10)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="font-family: 'Martian Mono', monospace; font-size: 11px; padding: 3px 8px; border-radius: 8px; color: #1A0E04; background: var(--acc); font-weight: 500">C4</span>
+<span style="font-weight: 600; font-size: 15px">Medical Supplies</span>
+</div>
+<span style="font-family: 'Martian Mono', monospace; font-size: 12px; color: #FFD2AE">48 SCU</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #D5DAE3; flex-wrap: wrap">
+<span>Orbituary</span>
+<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFB37A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+<span>Pyro Gateway (Stanton)</span>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; font-size: 12px">
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,122,26,0.16); color: #FFD2AE; border: 1px solid rgba(255,160,90,0.45)">Crosses jump point</span>
+<span style="font-weight: 600; color: #FFB37A">74,000 aUEC</span>
+</div>
+</article>
+
+</section>
+<section aria-label="Earnings" style="padding: 22px; border-radius: 22px; background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(var(--blur)) saturate(140%); -webkit-backdrop-filter: blur(var(--blur)) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 24px 60px rgba(0,0,0,0.5)">
+<div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px">
+<h2 style="margin: 0; font-family: Unbounded, sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 0.03em">Earnings</h2>
+<span style="font-size: 12px; color: #A7AFBD">From “Contract Complete” in the log</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 18px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 12px; color: #A7AFBD">Session · 1 h 12 min</span>
+<span style="font-family: Unbounded, sans-serif; font-size: 22px; font-weight: 600; color: var(--earn)">212,400</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 12px; color: #A7AFBD">Rate</span>
+<span style="font-family: Unbounded, sans-serif; font-size: 22px; font-weight: 600; color: var(--earn)">177k<span style="font-size: 12px; color: #A7AFBD"> /h</span></span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 12px; color: #A7AFBD">Completed · failed</span>
+<span style="font-family: Unbounded, sans-serif; font-size: 22px; font-weight: 600">3 <span style="font-size: 14px; color: #A7AFBD">· 0</span></span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 12px; color: #A7AFBD">All time · 61 jobs</span>
+<span style="font-family: Unbounded, sans-serif; font-size: 22px; font-weight: 600; color: var(--earn)">4.87M</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+
+<div style="display: flex; align-items: center; gap: 12px; font-size: 13px">
+<span style="font-family: 'Martian Mono', monospace; font-size: 11px; color: #A7AFBD; width: 48px">13:31</span>
+<span style="flex: 1; min-width: 0; color: #E6E9EF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Quartz → Checkmate</span>
+<div style="width: 64px; flex: none; height: 8px; border-radius: 99px; background: rgba(255,255,255,0.06); overflow: hidden"><div style="height: 100%; width: 100%; border-radius: 99px; background: linear-gradient(90deg, #4ADE80, #BBF7D0)"></div></div>
+<span style="font-family: 'Martian Mono', monospace; font-size: 12px; color: #BBF7D0; width: 64px; text-align: right">+88,400</span>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px; font-size: 13px">
+<span style="font-family: 'Martian Mono', monospace; font-size: 11px; color: #A7AFBD; width: 48px">13:02</span>
+<span style="flex: 1; min-width: 0; color: #E6E9EF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Scrap → Patch City</span>
+<div style="width: 64px; flex: none; height: 8px; border-radius: 99px; background: rgba(255,255,255,0.06); overflow: hidden"><div style="height: 100%; width: 79%; border-radius: 99px; background: linear-gradient(90deg, #4ADE80, #BBF7D0)"></div></div>
+<span style="font-family: 'Martian Mono', monospace; font-size: 12px; color: #BBF7D0; width: 64px; text-align: right">+70,000</span>
+</div>
+
+<div style="display: flex; align-items: center; gap: 12px; font-size: 13px">
+<span style="font-family: 'Martian Mono', monospace; font-size: 11px; color: #A7AFBD; width: 48px">12:41</span>
+<span style="flex: 1; min-width: 0; color: #E6E9EF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Hydrogen Fuel → Ruin Station</span>
+<div style="width: 64px; flex: none; height: 8px; border-radius: 99px; background: rgba(255,255,255,0.06); overflow: hidden"><div style="height: 100%; width: 61%; border-radius: 99px; background: linear-gradient(90deg, #4ADE80, #BBF7D0)"></div></div>
+<span style="font-family: 'Martian Mono', monospace; font-size: 12px; color: #BBF7D0; width: 64px; text-align: right">+54,000</span>
+</div>
+
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; padding: 12px 14px; border-radius: 14px; background: rgba(255,122,26,0.10); border: 1px dashed rgba(255,160,90,0.45); flex-wrap: wrap">
+<span style="font-size: 13px; color: #FFD2AE">Projected after this route</span>
+<span style="font-family: Unbounded, sans-serif; font-size: 17px; font-weight: 600; color: var(--acc)">588,100 aUEC</span>
+</div>
+</section>
+</div>
+<div style="flex: 1.6 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<section aria-label="Optimal route" style="display: flex; flex-direction: column; gap: 4px; padding: 20px; border-radius: 22px; background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(var(--blur)) saturate(140%); -webkit-backdrop-filter: blur(var(--blur)) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 24px 60px rgba(0,0,0,0.5)">
+<div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px">
+<h2 style="margin: 0; font-family: Unbounded, sans-serif; font-size: 18px; font-weight: 600; letter-spacing: 0.03em">Optimal route</h2>
+<span style="font-size: 12px; color: #A7AFBD">−33% vs. accept order</span>
+</div>
+
+<div style="display: flex; gap: 14px">
+<div style="display: flex; flex-direction: column; align-items: center; width: 30px; flex-shrink: 0">
+<span style="width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: Unbounded, sans-serif; font-weight: 600; font-size: 12px; background: #FF7A1A; color: #1A0E04; box-shadow: 0 0 18px #FF7A1A">1</span>
+<span aria-hidden="true" style="flex: 1; width: 2px; margin: 4px 0; background: linear-gradient(#FF7A1A, rgba(255,122,26,0.15))"></span>
+</div>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; padding-bottom: 18px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap">
+<span style="font-family: Unbounded, sans-serif; font-weight: 600; font-size: 16px">Ruin Station</span>
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,255,255,0.12); color: #F3F4F7; border: 1px solid rgba(255,255,255,0.28)">You are here</span>
+</div>
+
+<span style="font-size: 13px; color: #FFD2AE">▲ Load 128 SCU Pressurized Ice · C1</span>
+
+<span style="font-size: 13px; color: #FFD2AE">▲ Load 64 SCU Scrap · C3</span>
+
+<div style="display: flex; align-items: center; gap: 8px">
+<div style="flex: 1; height: 5px; border-radius: 99px; background: rgba(255,255,255,0.08); overflow: hidden"><div style="height: 100%; width: 60%; border-radius: 99px; background: linear-gradient(90deg, #FF7A1A, #FFD2AE)"></div></div>
+<span style="font-family: 'Martian Mono', monospace; font-size: 10px; color: #A7AFBD">192/320</span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; gap: 14px">
+<div style="display: flex; flex-direction: column; align-items: center; width: 30px; flex-shrink: 0">
+<span style="width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: Unbounded, sans-serif; font-weight: 600; font-size: 12px; background: rgba(8,10,14,0.6); color: #FFD2AE; border: 1.5px solid #FF7A1A">2</span>
+<span aria-hidden="true" style="flex: 1; width: 2px; margin: 4px 0; background: linear-gradient(#FF7A1A, rgba(255,122,26,0.15))"></span>
+</div>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; padding-bottom: 18px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap">
+<span style="font-family: Unbounded, sans-serif; font-weight: 600; font-size: 16px">Checkmate</span>
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,255,255,0.06); color: #D5DAE3; border: 1px solid rgba(255,255,255,0.14)">QT · 31.2 Gm</span>
+</div>
+
+<span style="font-size: 13px; color: #D5DAE3">▼ Deliver 64 SCU Scrap · C3</span>
+
+<span style="font-size: 13px; color: #FFD2AE">▲ Load 96 SCU Processed Food · C2</span>
+
+<div style="display: flex; align-items: center; gap: 8px">
+<div style="flex: 1; height: 5px; border-radius: 99px; background: rgba(255,255,255,0.08); overflow: hidden"><div style="height: 100%; width: 70%; border-radius: 99px; background: linear-gradient(90deg, #FF7A1A, #FFD2AE)"></div></div>
+<span style="font-family: 'Martian Mono', monospace; font-size: 10px; color: #A7AFBD">224/320</span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; gap: 14px">
+<div style="display: flex; flex-direction: column; align-items: center; width: 30px; flex-shrink: 0">
+<span style="width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: Unbounded, sans-serif; font-weight: 600; font-size: 12px; background: rgba(8,10,14,0.6); color: #FFD2AE; border: 1.5px solid #FF7A1A">3</span>
+<span aria-hidden="true" style="flex: 1; width: 2px; margin: 4px 0; background: linear-gradient(#FF7A1A, rgba(255,122,26,0.15))"></span>
+</div>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; padding-bottom: 18px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap">
+<span style="font-family: Unbounded, sans-serif; font-weight: 600; font-size: 16px">Patch City</span>
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,255,255,0.06); color: #D5DAE3; border: 1px solid rgba(255,255,255,0.14)">QT · 27.5 Gm</span>
+</div>
+
+<span style="font-size: 13px; color: #D5DAE3">▼ Deliver 96 SCU Processed Food · C2</span>
+
+<div style="display: flex; align-items: center; gap: 8px">
+<div style="flex: 1; height: 5px; border-radius: 99px; background: rgba(255,255,255,0.08); overflow: hidden"><div style="height: 100%; width: 40%; border-radius: 99px; background: linear-gradient(90deg, #FF7A1A, #FFD2AE)"></div></div>
+<span style="font-family: 'Martian Mono', monospace; font-size: 10px; color: #A7AFBD">128/320</span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; gap: 14px">
+<div style="display: flex; flex-direction: column; align-items: center; width: 30px; flex-shrink: 0">
+<span style="width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: Unbounded, sans-serif; font-weight: 600; font-size: 12px; background: rgba(8,10,14,0.6); color: #FFD2AE; border: 1.5px solid #FF7A1A">4</span>
+<span aria-hidden="true" style="flex: 1; width: 2px; margin: 4px 0; background: linear-gradient(#FF7A1A, rgba(255,122,26,0.15))"></span>
+</div>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; padding-bottom: 18px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap">
+<span style="font-family: Unbounded, sans-serif; font-weight: 600; font-size: 16px">Orbituary</span>
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,255,255,0.06); color: #D5DAE3; border: 1px solid rgba(255,255,255,0.14)">QT · 38.9 Gm</span>
+</div>
+
+<span style="font-size: 13px; color: #D5DAE3">▼ Deliver 128 SCU Pressurized Ice · C1</span>
+
+<span style="font-size: 13px; color: #FFD2AE">▲ Load 48 SCU Medical Supplies · C4</span>
+
+<div style="display: flex; align-items: center; gap: 8px">
+<div style="flex: 1; height: 5px; border-radius: 99px; background: rgba(255,255,255,0.08); overflow: hidden"><div style="height: 100%; width: 15%; border-radius: 99px; background: linear-gradient(90deg, #FF7A1A, #FFD2AE)"></div></div>
+<span style="font-family: 'Martian Mono', monospace; font-size: 10px; color: #A7AFBD">48/320</span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; gap: 14px">
+<div style="display: flex; flex-direction: column; align-items: center; width: 30px; flex-shrink: 0">
+<span style="width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: Unbounded, sans-serif; font-weight: 600; font-size: 12px; background: rgba(8,10,14,0.6); color: #FFD2AE; border: 1.5px solid #FF7A1A">5</span>
+<span aria-hidden="true" style="display: none"></span>
+</div>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; padding-bottom: 18px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap">
+<span style="font-family: Unbounded, sans-serif; font-weight: 600; font-size: 16px">Pyro Gateway</span>
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,122,26,0.16); color: #FFD2AE; border: 1px solid rgba(255,160,90,0.45)">QT 44.4 Gm + jump</span>
+</div>
+
+<span style="font-size: 13px; color: #D5DAE3">▼ Deliver 48 SCU Medical Supplies · C4</span>
+
+<div style="display: flex; align-items: center; gap: 8px">
+<div style="flex: 1; height: 5px; border-radius: 99px; background: rgba(255,255,255,0.08); overflow: hidden"><div style="height: 100%; width: 0%; border-radius: 99px; background: linear-gradient(90deg, #FF7A1A, #FFD2AE)"></div></div>
+<span style="font-family: 'Martian Mono', monospace; font-size: 10px; color: #A7AFBD">0/320</span>
+</div>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 6px">
+<label style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: #D5DAE3; cursor: pointer">
+<input type="checkbox" onchange="() => this.setState({ avoidJumps: !this.state.avoidJumps })" style="width: 18px; height: 18px; accent-color: var(--acc)">
+Avoid inter-system jumps
+</label>
+
+<button type="button" style="min-height: 46px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); color: #F3F4F7; font-family: Unbounded, sans-serif; font-weight: 500; font-size: 13px; letter-spacing: 0.04em; cursor: pointer; backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur))">RECALCULATE</button>
+</div>
+</section>
+<section aria-label="Cargo hold per stop" style="padding: 22px; border-radius: 22px; background: linear-gradient(160deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(var(--blur)) saturate(140%); -webkit-backdrop-filter: blur(var(--blur)) saturate(140%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 24px 60px rgba(0,0,0,0.5)">
+<div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px; gap: 10px; flex-wrap: wrap">
+<h2 style="margin: 0; font-family: Unbounded, sans-serif; font-size: 15px; font-weight: 600; letter-spacing: 0.03em">Cargo hold leaving each stop</h2>
+<span style="font-size: 12px; color: #A7AFBD">Max 320 SCU · peak 224 SCU (70%)</span>
+</div>
+<div style="position: relative; height: 140px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; align-items: end; border-top: 1px dashed rgba(255,160,90,0.45)">
+<span style="position: absolute; top: -9px; right: 0; font-family: 'Martian Mono', monospace; font-size: 10px; color: #FFD2AE; background: #10131A; padding: 0 6px; border-radius: 6px">320</span>
+
+<div style="height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px">
+<span style="font-family: 'Martian Mono', monospace; font-size: 11px; color: #F3F4F7">192</span>
+<div style="width: 100%; max-width: 72px; height: 60%; border-radius: 10px 10px 4px 4px; background: linear-gradient(180deg, #FF7A1A, rgba(255,122,26,0.25)); border: 1px solid rgba(255,190,140,0.5); box-shadow: 0 0 24px rgba(255,122,26,0.3), inset 0 1px 0 rgba(255,255,255,0.35)"></div>
+</div>
+
+<div style="height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px">
+<span style="font-family: 'Martian Mono', monospace; font-size: 11px; color: #F3F4F7">224</span>
+<div style="width: 100%; max-width: 72px; height: 70%; border-radius: 10px 10px 4px 4px; background: linear-gradient(180deg, #FF7A1A, rgba(255,122,26,0.25)); border: 1px solid rgba(255,190,140,0.5); box-shadow: 0 0 24px rgba(255,122,26,0.3), inset 0 1px 0 rgba(255,255,255,0.35)"></div>
+</div>
+
+<div style="height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px">
+<span style="font-family: 'Martian Mono', monospace; font-size: 11px; color: #F3F4F7">128</span>
+<div style="width: 100%; max-width: 72px; height: 40%; border-radius: 10px 10px 4px 4px; background: linear-gradient(180deg, #FF7A1A, rgba(255,122,26,0.25)); border: 1px solid rgba(255,190,140,0.5); box-shadow: 0 0 24px rgba(255,122,26,0.3), inset 0 1px 0 rgba(255,255,255,0.35)"></div>
+</div>
+
+<div style="height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px">
+<span style="font-family: 'Martian Mono', monospace; font-size: 11px; color: #F3F4F7">48</span>
+<div style="width: 100%; max-width: 72px; height: 15%; border-radius: 10px 10px 4px 4px; background: linear-gradient(180deg, #FF7A1A, rgba(255,122,26,0.25)); border: 1px solid rgba(255,190,140,0.5); box-shadow: 0 0 24px rgba(255,122,26,0.3), inset 0 1px 0 rgba(255,255,255,0.35)"></div>
+</div>
+
+<div style="height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px">
+<span style="font-family: 'Martian Mono', monospace; font-size: 11px; color: #F3F4F7">0</span>
+<div style="width: 100%; max-width: 72px; height: 2%; border-radius: 10px 10px 4px 4px; background: linear-gradient(180deg, #FF7A1A, rgba(255,122,26,0.25)); border: 1px solid rgba(255,190,140,0.5); box-shadow: 0 0 24px rgba(255,122,26,0.3), inset 0 1px 0 rgba(255,255,255,0.35)"></div>
+</div>
+
+</div>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin-top: 8px">
+
+<span style="text-align: center; font-size: 12px; color: #A7AFBD">1 · Ruin Station</span>
+
+<span style="text-align: center; font-size: 12px; color: #A7AFBD">2 · Checkmate</span>
+
+<span style="text-align: center; font-size: 12px; color: #A7AFBD">3 · Patch City</span>
+
+<span style="text-align: center; font-size: 12px; color: #A7AFBD">4 · Orbituary</span>
+
+<span style="text-align: center; font-size: 12px; color: #A7AFBD">5 · Pyro Gateway</span>
+
+</div>
+</section>
+</div>
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<section aria-label="Next stop" style="position: sticky; top: 20px; overflow: hidden; padding: 24px; border-radius: 22px; background: linear-gradient(150deg, rgba(255,122,26,0.16), rgba(255,255,255,0.03) 55%); border: 1px solid rgba(255,170,100,0.35); backdrop-filter: blur(var(--blur)) saturate(150%); -webkit-backdrop-filter: blur(var(--blur)) saturate(150%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 24px 60px rgba(0,0,0,0.5)">
+<div aria-hidden="true" style="position: absolute; right: -60px; top: -80px; width: 280px; height: 280px; border-radius: 50%; border: 1px solid rgba(255,170,100,0.25); box-shadow: 0 0 0 28px rgba(255,170,100,0.05), 0 0 0 64px rgba(255,170,100,0.035)"></div>
+<div style="position: relative; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 18px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #FFD2AE"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: var(--acc); box-shadow: 0 0 10px var(--acc)"></span>NEXT STOP · 1 OF 5</span>
+<h2 style="margin: 0; font-family: Unbounded, sans-serif; font-size: 32px; font-weight: 700; letter-spacing: 0.01em">Ruin Station</h2>
+<span style="font-size: 14px; color: #A7AFBD">Pyro · space station · docked 2 min ago</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; width: 100%; padding: 14px; border-radius: 14px; background: rgba(255,122,26,0.10); border: 1px solid rgba(255,160,90,0.30)">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: #FFD2AE">CONFIRM CARGO</span>
+<span style="font-family: 'Martian Mono', monospace; font-size: 11px; color: #E6E9EF">0 / 192 SCU</span>
+</div>
+
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="flex: 1; font-size: 14px; color: #FFD2AE">▲ 128 SCU Pressurized Ice · C1</span>
+<button type="button" onclick="() => this.setState({ loaded: Object.assign({}, this.state.loaded, { [t.id]: !this.state.loaded[t.id] }) })" aria-pressed="false" style="min-width: 92px; min-height: 36px; padding: 0 12px; border-radius: 10px; cursor: pointer; font-family: Unbounded, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.03em; background: rgba(255,255,255,0.06); color: #F3F4F7; border: 1px solid rgba(255,255,255,0.25)">Confirm</button>
+</div>
+
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="flex: 1; font-size: 14px; color: #FFD2AE">▲ 64 SCU Scrap · C3</span>
+<button type="button" onclick="() => this.setState({ loaded: Object.assign({}, this.state.loaded, { [t.id]: !this.state.loaded[t.id] }) })" aria-pressed="false" style="min-width: 92px; min-height: 36px; padding: 0 12px; border-radius: 10px; cursor: pointer; font-family: Unbounded, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.03em; background: rgba(255,255,255,0.06); color: #F3F4F7; border: 1px solid rgba(255,255,255,0.25)">Confirm</button>
+</div>
+
+<div style="height: 6px; border-radius: 99px; background: rgba(0,0,0,0.35); overflow: hidden"><div style="height: 100%; width: 0%; border-radius: 99px; background: linear-gradient(90deg, #FF7A1A, #FFD2AE)"></div></div>
+<button type="button" onclick="() => this.setState({ loaded: { C1: !allDone, C3: !allDone } })" style="min-height: 44px; border-radius: 12px; cursor: pointer; font-family: Unbounded, sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; background: rgba(255,122,26,0.18); color: #FFE3CC; border: 1px solid rgba(255,170,100,0.6)">CONFIRM ALL LOADED</button>
+<span style="font-size: 11px; color: #A7AFBD">Expected from contract objectives · confirm when it is in your hold</span>
+</div>
+</div>
+<div style="position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px">
+
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 14px; background: rgba(8,10,14,0.50); border: 1px solid rgba(255,255,255,0.10)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<span style="font-size: 13px; font-weight: 600; color: #E6E9EF">Exterior cargo dock</span>
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,255,255,0.12); color: #F3F4F7; border: 1px solid rgba(255,255,255,0.28)">Yes</span>
+</div>
+<span style="font-size: 12px; color: #A7AFBD; line-height: 1.4">Dock outside and load from the ring, no hangar needed</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 14px; background: rgba(8,10,14,0.50); border: 1px solid rgba(255,255,255,0.10)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<span style="font-size: 13px; font-weight: 600; color: #E6E9EF">Freight elevator</span>
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,255,255,0.12); color: #F3F4F7; border: 1px solid rgba(255,255,255,0.28)">Yes</span>
+</div>
+<span style="font-size: 12px; color: #A7AFBD; line-height: 1.4">In every hangar · cargo deck on level 2</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 14px; background: rgba(8,10,14,0.50); border: 1px solid rgba(255,255,255,0.10)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<span style="font-size: 13px; font-weight: 600; color: #E6E9EF">Hangar for Railen</span>
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,255,255,0.12); color: #F3F4F7; border: 1px solid rgba(255,255,255,0.28)">Fits · L</span>
+</div>
+<span style="font-size: 12px; color: #A7AFBD; line-height: 1.4">Largest pad here: L</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 14px; background: rgba(8,10,14,0.50); border: 1px solid rgba(255,255,255,0.10)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<span style="font-size: 13px; font-weight: 600; color: #E6E9EF">Commodity terminal</span>
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,255,255,0.12); color: #F3F4F7; border: 1px solid rgba(255,255,255,0.28)">Yes</span>
+</div>
+<span style="font-size: 12px; color: #A7AFBD; line-height: 1.4">Buy and sell cargo on site</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 14px; background: rgba(8,10,14,0.50); border: 1px solid rgba(255,255,255,0.10)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<span style="font-size: 13px; font-weight: 600; color: #E6E9EF">Refuel · Repair · Rearm</span>
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,122,26,0.16); color: #FFD2AE; border: 1px solid rgba(255,160,90,0.45)">2 of 3</span>
+</div>
+<span style="font-size: 12px; color: #A7AFBD; line-height: 1.4">No rearm here</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: 14px; background: rgba(8,10,14,0.50); border: 1px solid rgba(255,255,255,0.10)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<span style="font-size: 13px; font-weight: 600; color: #E6E9EF">Armistice zone</span>
+<span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; white-space: nowrap; background: rgba(255,255,255,0.03); color: #8D96A6; border: 1px solid rgba(255,255,255,0.10)">Inside only</span>
+</div>
+<span style="font-size: 12px; color: #A7AFBD; line-height: 1.4">Not covered on the exterior dock · stay alert while loading</span>
+</div>
+
+</div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 8px; margin-top: 16px"><button type="button" onclick="() => this.setState({ copied: true })" style="min-height: 50px; border-radius: 14px; border: 1px solid rgba(255,190,140,0.6); background: linear-gradient(160deg, rgba(255,122,26,0.95), rgba(230,90,10,0.85)); color: #1A0E04; font-family: Unbounded, sans-serif; font-weight: 600; font-size: 13px; letter-spacing: 0.04em; cursor: pointer; box-shadow: 0 8px 30px rgba(255,122,26,0.35), inset 0 1px 0 rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; gap: 10px">
+<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A0E04" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg>
+COPY NEXT STOP
+</button>
+<span style="font-size: 12px; color: #A7AFBD; text-align: center">Then press F2 and paste it into the starmap search</span></div>
+<p style="position: relative; margin: 14px 0 0; font-size: 11px; color: #8D96A6">Example values · station data would come from UEX / Star Citizen Wiki</p>
+</section>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</body>
+</html>

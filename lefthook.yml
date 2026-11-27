@@ -1,0 +1,14 @@
+pre-commit:
+  parallel: false
+  commands:
+    lint:
+      run: pnpm lint
+    typecheck:
+      run: pnpm typecheck
+    test:
+      run: pnpm test
+
+commit-msg:
+  commands:
+    conventional:
+      run: node scripts/check-commit-message.js {1}
