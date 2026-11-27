@@ -41,8 +41,12 @@ Open the URL Vite prints (usually `http://localhost:5173`).
 
 1. Click **Open game folder** and pick your `StarCitizen\LIVE` folder, for example `C:\Program Files\Roberts Space Industries\StarCitizen\LIVE`.
 2. Accept hauling contracts in game. They show up in Haulmate as they appear in the log.
-3. Pick your ship if Haulmate has not detected it, and follow the route.
+3. Pick your ship in **Settings** if Haulmate has not detected it, and follow the route.
 4. Confirm cargo when it is in your hold, and copy the next stop into the starmap search.
+
+The game does not log the SCU of every contract. When a contract card asks for it, copy the amount from your mobiGlas. Rewards are optional; add them to see the route payout and your earnings, since recent game builds no longer log payouts.
+
+No game at hand? Click **Try the demo**.
 
 If the browser refuses the folder, pick the `Game.log` file itself instead (no live updates in that mode, use **Reload** to read it again).
 
@@ -51,7 +55,8 @@ If the browser refuses the folder, pick the `Game.log` file itself instead (no l
 - Live reading needs the File System Access API: Chrome or Edge on desktop.
 - Only English game text is recognised for now.
 - Contracts accepted before the current game launch are in older logs and are not picked up.
-- Distances between locations are approximate.
+- Pickups are named from places Haulmate has seen before; new ones show as "Unknown pickup".
+- Travel times are estimates by hop type (same body, quantum travel, jump), not real distances. Tune them in **Settings**.
 
 ## Privacy and fair play
 

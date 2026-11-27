@@ -29,10 +29,15 @@ export interface RouteRequest {
 
 export type HopKind = 'none' | 'local' | 'quantum' | 'jump';
 
+export interface TaskAmount {
+  taskId: string;
+  scu: number;
+}
+
 export interface RouteVisit {
   stop: Stop;
-  loadTaskIds: string[];
-  unloadTaskIds: string[];
+  loads: TaskAmount[];
+  unloads: TaskAmount[];
   loadedScu: number;
   unloadedScu: number;
   onboardScuAfter: number;

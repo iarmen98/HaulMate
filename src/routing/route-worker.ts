@@ -11,8 +11,12 @@ export interface RouteWorkerResponse {
   plan: RoutePlan;
 }
 
-self.addEventListener('message', (message: MessageEvent<RouteWorkerRequest>) => {
+const scope = self as unknown as {
+  postMessage(message: RouteWorkerResponse): void;
+  addEventListener(type: 'message', listener: (message: MessageEvent<RouteWorkerRequest>) => void): void;
+};
+
+scope.addEventListener('message', (message) => {
   const { requestId, request } = message.data;
-  const response: RouteWorkerResponse = { requestId, plan: solveRoute(request) };
-  self.postMessage(response);
+  scope.postMessage({ requestId, plan: solveRoute(request) });
 });

@@ -143,7 +143,7 @@ describe('solveRoute', () => {
     });
 
     expect(plan.visits[0]?.stop.placeKey).toBe('Ruin Station');
-    expect(plan.visits[0]?.loadTaskIds.sort()).toEqual(['C1', 'C3']);
+    expect(plan.visits[0]?.loads.map((load) => load.taskId).sort()).toEqual(['C1', 'C3']);
     expect(plan.visits).toHaveLength(3);
   });
 
@@ -188,7 +188,7 @@ describe('solveRoute', () => {
 
     expect(plan.splitTaskIds).toEqual(['BIG']);
     expect(plan.peakScu).toBe(320);
-    const loaded = plan.visits.flatMap((visit) => visit.loadTaskIds);
+    const loaded = plan.visits.flatMap((visit) => visit.loads.map((load) => load.taskId));
     expect(loaded.map(readBaseTaskId)).toEqual(['BIG', 'BIG']);
   });
 
@@ -212,7 +212,7 @@ describe('solveRoute', () => {
     });
 
     expect(plan.visits).toHaveLength(1);
-    expect(plan.visits[0]?.unloadTaskIds).toEqual(['ON']);
+    expect(plan.visits[0]?.unloads.map((unload) => unload.taskId)).toEqual(['ON']);
   });
 
   it('reports cargo on board above capacity', () => {
@@ -242,7 +242,7 @@ describe('solveRoute', () => {
     });
 
     expect(plan.method).toBe('heuristic');
-    expect(plan.visits.flatMap((visit) => visit.unloadTaskIds).sort()).toEqual(
+    expect(plan.visits.flatMap((visit) => visit.unloads.map((unload) => unload.taskId)).sort()).toEqual(
       tasks.map((task) => task.taskId).sort(),
     );
   });

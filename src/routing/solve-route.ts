@@ -58,8 +58,8 @@ function describeVisits(
         ? last
         : {
             stop: node.stop,
-            loadTaskIds: [],
-            unloadTaskIds: [],
+            loads: [],
+            unloads: [],
             loadedScu: 0,
             unloadedScu: 0,
             onboardScuAfter: 0,
@@ -70,10 +70,10 @@ function describeVisits(
       visits.push(visit);
     }
     if (node.kind === 'pickup') {
-      visit.loadTaskIds.push(task.taskId);
+      visit.loads.push({ taskId: task.taskId, scu: task.scu });
       visit.loadedScu += task.scu;
     } else {
-      visit.unloadTaskIds.push(task.taskId);
+      visit.unloads.push({ taskId: task.taskId, scu: task.scu });
       visit.unloadedScu += task.scu;
     }
     visit.onboardScuAfter = onboardScu;
