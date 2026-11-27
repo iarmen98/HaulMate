@@ -32,6 +32,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@preact/preset-vite": "^2.10.6",
+    "@types/node": "24",
     "eslint": "^10.16.0",
     "fast-check": "^4.11.0",
     "globals": "^17.14.0",
