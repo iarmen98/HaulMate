@@ -1,0 +1,45 @@
+{
+  "name": "haulmate",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Hauling routes from your Star Citizen Game.log",
+  "license": "MIT",
+  "author": "Armen",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iarmen98/HaulMate.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.15.9",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
+    "prepare": "lefthook install"
+  },
+  "dependencies": {
+    "preact": "^11.2.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@preact/preset-vite": "^2.10.6",
+    "eslint": "^10.16.0",
+    "fast-check": "^4.11.0",
+    "globals": "^17.14.0",
+    "lefthook": "^2.2.4",
+    "prettier": "^3.10.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.74.0",
+    "vite": "^8.4.0",
+    "vitest": "^5.1.2"
+  }
+}
