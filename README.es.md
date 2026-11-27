@@ -41,8 +41,12 @@ Abre la URL que muestra Vite (normalmente `http://localhost:5173`).
 
 1. Pulsa **Abrir carpeta del juego** y elige tu carpeta `StarCitizen\LIVE`, por ejemplo `C:\Program Files\Roberts Space Industries\StarCitizen\LIVE`.
 2. Acepta contratos de carga en el juego. Aparecen en Haulmate según llegan al log.
-3. Elige tu nave si Haulmate no la ha detectado y sigue la ruta.
+3. Elige tu nave en **Ajustes** si Haulmate no la ha detectado y sigue la ruta.
 4. Confirma la carga cuando esté en la bodega y copia la siguiente parada en el buscador del mapa estelar.
+
+El juego no registra los SCU de todos los contratos. Cuando una tarjeta te los pida, cópialos de tu mobiGlas. Las recompensas son opcionales; añádelas para ver el pago de la ruta y tus ganancias, ya que las versiones recientes del juego no registran los pagos.
+
+¿Sin el juego a mano? Pulsa **Probar la demo**.
 
 Si el navegador no deja abrir la carpeta, elige el propio archivo `Game.log` (sin actualización en directo; usa **Recargar** para leerlo de nuevo).
 
@@ -51,7 +55,8 @@ Si el navegador no deja abrir la carpeta, elige el propio archivo `Game.log` (si
 - La lectura en directo necesita la File System Access API: Chrome o Edge de escritorio.
 - De momento solo se reconoce el texto del juego en inglés.
 - Los contratos aceptados antes del arranque actual del juego están en logs anteriores y no se detectan.
-- Las distancias entre ubicaciones son aproximadas.
+- Las recogidas se nombran a partir de lugares ya vistos; los nuevos aparecen como "Recogida desconocida".
+- Los tiempos son estimaciones por tipo de salto (mismo cuerpo, viaje cuántico, salto), no distancias reales. Ajústalos en **Ajustes**.
 
 ## Privacidad y juego limpio
 

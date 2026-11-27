@@ -10,7 +10,7 @@ Static web app that reads the Star Citizen `Game.log` in the browser and plans t
 
 ## Current phase
 
-Work one phase at a time, as listed in `docs/PLAN.md`. Do not start the next phase until the current gate passes. Update this line when a phase is done: **Phase 1 — Foundations.**
+Work one phase at a time, as listed in `docs/PLAN.md`. Do not start the next phase until the current gate passes. Update this line when a phase is done: **Phase 4 — UI and v0.1: built; waiting for the gate (one full hauling session played with Haulmate open).**
 
 ## Stack
 
