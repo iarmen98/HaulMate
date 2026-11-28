@@ -85,7 +85,11 @@ export function buildCargoLegs(contract: Contract, inputs: LegInputs): CargoLeg[
         scuSource,
         pickup: pickup ? resolveObjectivePlace(pickup, systemId, 'pickup') : null,
         dropoff: dropoffPlace,
-        status: delivered ? 'delivered' : inputs.loadedLegIds.has(legId) ? 'onBoard' : 'toLoad',
+        status: delivered
+          ? 'delivered'
+          : inputs.loadedLegIds.has(legId) || pickup?.loadDetected === true
+            ? 'onBoard'
+            : 'toLoad',
       };
     });
   });

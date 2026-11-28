@@ -10,6 +10,9 @@ export interface ContractObjective {
   totalScu: number | null;
   destinationName: string | null;
   completed: boolean;
+  isPlayerInside: boolean;
+  usedElevatorInside: boolean;
+  loadDetected: boolean;
 }
 
 export interface Contract {
@@ -81,6 +84,9 @@ function createObjective(objectiveId: string): ContractObjective {
     totalScu: null,
     destinationName: null,
     completed: false,
+    isPlayerInside: false,
+    usedElevatorInside: false,
+    loadDetected: false,
   };
 }
 
@@ -100,6 +106,25 @@ function updateObjective(
 ): Contract {
   const objective = contract.objectives[objectiveId] ?? createObjective(objectiveId);
   return { ...contract, objectives: { ...contract.objectives, [objectiveId]: update(objective) } };
+}
+
+function updateObjectivesInside(
+  state: HaulingState,
+  update: (objective: ContractObjective) => ContractObjective,
+): HaulingState {
+  let contracts = state.contracts;
+  for (const contract of Object.values(state.contracts)) {
+    const inside = Object.values(contract.objectives).filter((objective) => objective.isPlayerInside);
+    if (contract.status !== 'active' || inside.length === 0) {
+      continue;
+    }
+    const objectives = { ...contract.objectives };
+    for (const objective of inside) {
+      objectives[objective.objectiveId] = update(objective);
+    }
+    contracts = { ...contracts, [contract.missionId]: { ...contract, objectives } };
+  }
+  return contracts === state.contracts ? state : { ...state, contracts };
 }
 
 function endContract(
@@ -197,6 +222,31 @@ function applyEvent(state: HaulingState, event: HaulmateEvent): HaulingState {
       return state;
     case 'QuantumDestinationSelected':
       return { ...state, quantumTargetId: event.pointId };
+    case 'ObjectiveAreaEntered':
+      return updateContract(state, event.missionId, (contract) =>
+        updateObjective(contract, event.objectiveId, (objective) => ({
+          ...objective,
+          isPlayerInside: true,
+          usedElevatorInside: false,
+        })),
+      );
+    case 'ObjectiveAreaLeft':
+      return updateContract(state, event.missionId, (contract) =>
+        updateObjective(contract, event.objectiveId, (objective) => ({
+          ...objective,
+          isPlayerInside: false,
+          loadDetected:
+            objective.loadDetected || (objective.kind === 'pickup' && objective.usedElevatorInside),
+        })),
+      );
+    case 'ObjectiveProgressed':
+      return updateContract(state, event.missionId, (contract) =>
+        updateObjective(contract, event.objectiveId, (objective) => ({ ...objective, loadDetected: true })),
+      );
+    case 'FreightElevatorUsed':
+      return updateObjectivesInside(state, (objective) =>
+        objective.kind === 'pickup' ? { ...objective, usedElevatorInside: true } : objective,
+      );
     case 'UnknownHaulingLineFound':
       return { ...state, unknownHaulingLineCount: state.unknownHaulingLineCount + 1 };
   }
