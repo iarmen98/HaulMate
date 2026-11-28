@@ -7,6 +7,11 @@ const MARKER_PATTERN =
   /<CLocalMissionPhaseMarker::CreateMarker> Creating objective marker: missionId \[([0-9a-f-]+)\], generator name \[([^\]]*)\], contract \[([^\]]*)\][\s\S]*?objectiveId \[((pickup|dropoff)_[^\]]+)\][\s\S]*?position \[x: (-?[\d.]+), y: (-?[\d.]+), z: (-?[\d.]+)\]/;
 const OBJECTIVE_UPSERTED_PATTERN =
   /<ObjectiveUpserted> Received ObjectiveUpserted push message for: mission_id ([0-9a-f-]+) - objective_id (dropoff_\S+) - state MISSION_OBJECTIVE_STATE_COMPLETED/;
+const OBJECTIVE_PROGRESSED_PATTERN =
+  /<ObjectiveUpserted> Received ObjectiveUpserted push message for: mission_id ([0-9a-f-]+) - objective_id (pickup_\S+) - state MISSION_OBJECTIVE_STATE_(?:INPROGRESS|COMPLETED) - created \d+ - flags=ShowInLog/;
+const MARKER_AREA_PATTERN =
+  /<CObjectiveMarkerComponent::(RemovePlayer|AddPlayer)> [\s\S]*?(added to|removed from) removed player list[\s\S]*?missionId\[([0-9a-f-]+)\], objectiveId\[([^\]]+)\]/;
+const FREIGHT_ELEVATOR_PATTERN = /<CEntityComponentFreightElevatorUIProvider::FillUnstowRequest>/;
 const END_MISSION_PATTERN =
   /<EndMission> Ending mission for player\. MissionId\[([0-9a-f-]+)\][\s\S]*?CompletionType\[(\w+)\]/;
 const LOCATION_PATTERN = /requested inventory for Location\[([^\]]+)\]/;
@@ -14,6 +19,7 @@ const CHARACTER_PATTERN = /<AccountLoginCharacterStatus_Character> Character: [\
 const QUANTUM_DESTINATION_PATTERN = /selected point (\S+) as their destination/;
 
 const CONTRACT_ACCEPTED_PATTERN = /^Contract Accepted:\s*([\s\S]*?)\s*:?\s*$/;
+const MARKUP_PATTERN = /<[A-Za-z0-9]+>[\s\S]*?<\/[A-Za-z0-9]+>|<\/?[A-Za-z0-9]+>/g;
 const NEW_DELIVERY_PATTERN = /^New Objective: Deliver (\d+)\/(\d+) SCU of ([\s\S]+?) to ([\s\S]+?)\s*:?\s*$/;
 const DELIVERY_COMPLETE_PATTERN = /^Objective Complete: Deliver \d+\/\d+ SCU of /;
 const PAYOUT_PATTERN = /^Awarded ([\d,]+) aUEC/;
@@ -50,7 +56,8 @@ function parseNotification(
 
   const accepted = CONTRACT_ACCEPTED_PATTERN.exec(text);
   if (accepted && hasMission) {
-    return { type: 'ContractAccepted', atMs, missionId, title: accepted[1]?.trim() ?? '' };
+    const title = (accepted[1] ?? '').replace(MARKUP_PATTERN, '').replace(/\s+/g, ' ').trim();
+    return { type: 'ContractAccepted', atMs, missionId, title };
   }
 
   const delivery = NEW_DELIVERY_PATTERN.exec(text);
@@ -148,6 +155,25 @@ export function parseRecord(record: string): HaulmateEvent | null {
   const upserted = OBJECTIVE_UPSERTED_PATTERN.exec(record);
   if (upserted?.[1] && upserted[2]) {
     return { type: 'ObjectiveCompleted', atMs, missionId: upserted[1], objectiveId: upserted[2] };
+  }
+
+  const progressed = OBJECTIVE_PROGRESSED_PATTERN.exec(record);
+  if (progressed?.[1] && progressed[2]) {
+    return { type: 'ObjectiveProgressed', atMs, missionId: progressed[1], objectiveId: progressed[2] };
+  }
+
+  const markerArea = MARKER_AREA_PATTERN.exec(record);
+  if (markerArea?.[3] && markerArea[4] && !/OnDisconnect: 1/.test(record)) {
+    return {
+      type: markerArea[2] === 'added to' ? 'ObjectiveAreaEntered' : 'ObjectiveAreaLeft',
+      atMs,
+      missionId: markerArea[3],
+      objectiveId: markerArea[4],
+    };
+  }
+
+  if (FREIGHT_ELEVATOR_PATTERN.test(record)) {
+    return { type: 'FreightElevatorUsed', atMs };
   }
 
   const endMission = END_MISSION_PATTERN.exec(record);
