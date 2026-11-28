@@ -25,5 +25,15 @@ export function usePersistentState<T extends object>(
     }
   }, [key, value]);
 
+  useEffect(() => {
+    const syncFromOtherWindow = (event: StorageEvent) => {
+      if (event.key === STORAGE_PREFIX + key) {
+        setValue(readStoredValue(key, fallback));
+      }
+    };
+    window.addEventListener('storage', syncFromOtherWindow);
+    return () => window.removeEventListener('storage', syncFromOtherWindow);
+  }, [key]);
+
   return [value, (update) => setValue((current) => update(current))];
 }
