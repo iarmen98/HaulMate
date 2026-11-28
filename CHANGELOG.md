@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- In-game overlay: transparent, click-through, always-on-top panel with the next stop and earnings; Shift+F8 toggles it and F8 confirms the cargo at the next stop.
 - Windows desktop app (Electron) with an installer and uninstaller. It finds the game folder on any drive and follows `Game.log` from disk; builds are unsigned for now.
 - Live `Game.log` reading from the game folder (Chrome and Edge), with a one-click reconnect on later visits, and a one-off file mode for other browsers.
 - Parser for contracts, objective markers, deliveries, payouts, location, ship and quantum destinations, checked against anonymised real sessions.

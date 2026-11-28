@@ -51,6 +51,14 @@ El juego no registra los SCU de todos los contratos. Cuando una tarjeta te los p
 
 En la versión web, **Probar la demo** carga una sesión de ejemplo y **Abrir archivo Game.log** lee un log una vez cuando el navegador no puede abrir la carpeta.
 
+## Overlay en el juego
+
+La app de escritorio puede mostrar un panel transparente sobre el juego, abajo a la izquierda: siguiente parada, carga que subir o entregar, las paradas siguientes y tus ganancias. No captura clics del ratón, así que el juego sigue funcionando debajo.
+
+- **Mayús+F8** lo muestra u oculta (o el botón de la app).
+- **F8** confirma como cargada la carga de la siguiente parada.
+- Pon Star Citizen en modo **Ventana sin bordes**; la pantalla completa exclusiva tapa cualquier otra ventana.
+
 ## Limitaciones
 
 - De momento solo Windows. La versión web necesita Chrome o Edge para la lectura en directo.

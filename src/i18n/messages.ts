@@ -22,6 +22,17 @@ const en = {
   connectDesktopHint:
     'Haulmate looks for the game on every drive when it starts. Pick the folder if it was not found.',
   followingFolder: 'Reading {path}',
+  overlayToggle: 'Show or hide the in-game overlay',
+  overlayHint:
+    'Set Star Citizen to Borderless window mode so the overlay shows on top. {toggle} toggles it, {confirm} confirms the cargo at the next stop.',
+  overlayTitle: 'HAULMATE',
+  overlayNextStop: 'Next stop · {index} of {count}',
+  overlayConfirmHint: 'confirm cargo loaded · {loaded}/{total} SCU',
+  overlaySession: 'Session',
+  overlayToEarn: 'To earn',
+  overlayEta: 'ETA',
+  overlayIdle: 'No route yet. Accept hauling contracts.',
+  overlayJumpTo: 'JUMP → {system}',
   connectUnsupported:
     'Live reading needs Chrome or Edge on desktop. You can still open a Game.log file once.',
   reconnectTitle: 'Reconnect to your game folder',
@@ -129,6 +140,17 @@ const es: Record<MessageKey, string> = {
   connectDesktopHint:
     'Haulmate busca el juego en todas las unidades al arrancar. Elige la carpeta si no la ha encontrado.',
   followingFolder: 'Leyendo {path}',
+  overlayToggle: 'Mostrar u ocultar el overlay del juego',
+  overlayHint:
+    'Pon Star Citizen en modo Ventana sin bordes para que el overlay se vea encima. {toggle} lo muestra u oculta, {confirm} confirma la carga en la siguiente parada.',
+  overlayTitle: 'HAULMATE',
+  overlayNextStop: 'Siguiente parada · {index} de {count}',
+  overlayConfirmHint: 'confirmar carga · {loaded}/{total} SCU',
+  overlaySession: 'Sesión',
+  overlayToEarn: 'Por ganar',
+  overlayEta: 'Tiempo',
+  overlayIdle: 'Aún no hay ruta. Acepta contratos de carga.',
+  overlayJumpTo: 'SALTO → {system}',
   connectUnsupported:
     'La lectura en directo necesita Chrome o Edge de escritorio. Aun así puedes abrir un Game.log una vez.',
   reconnectTitle: 'Vuelve a conectar la carpeta del juego',

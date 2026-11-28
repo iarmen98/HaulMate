@@ -51,6 +51,14 @@ The game does not log the SCU of every contract. When a contract card asks for i
 
 In the web version, **Try the demo** loads a sample session, and **Open Game.log file** reads a log once when the browser cannot open the folder.
 
+## In-game overlay
+
+The desktop app can show a small transparent panel over the game, bottom left: next stop, cargo to load or deliver, the stops after it and your earnings. It never takes mouse clicks, so the game keeps working underneath.
+
+- **Shift+F8** shows or hides it (or use the button in the app).
+- **F8** confirms the cargo at the next stop as loaded.
+- Set Star Citizen to **Borderless** window mode; exclusive fullscreen draws over every other window.
+
 ## Limitations
 
 - Windows only for now. The web version needs Chrome or Edge for live reading.
