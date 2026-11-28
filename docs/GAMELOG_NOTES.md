@@ -73,7 +73,7 @@ These come with every contract and are the reliable source.
 | `<CEntityComponentFreightElevatorUIProvider::FillUnstowRequest>`                                                           | `FreightElevatorUsed`  | The player asked the freight elevator for cargo                   |
 | `<ObjectiveUpserted> … objective_id pickup_… - state MISSION_OBJECTIVE_STATE_INPROGRESS … flags=ShowInLog`                 | `ObjectiveProgressed`  | Cargo for that pickup was taken                                   |
 
-Haulmate marks a pickup as loaded when the player uses the freight elevator while at that pickup and then leaves, or when the game reports progress on it. A contract with several pickups (`Multi4ToSingle`) completed in one session without its fourth pickup ever being visited, so not every pickup may be required; to be confirmed.
+Haulmate marks a pickup as loaded when the player uses the freight elevator while at that pickup and then leaves, or when the game reports progress on it. Every pickup of a `Multi…ToSingle` contract is required (confirmed by the player). One logged contract completed without a recorded visit to one of its pickups, so a visit can go unlogged; the manual confirm covers that case.
 
 ## Contract titles
 
