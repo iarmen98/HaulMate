@@ -72,7 +72,7 @@ function ContractCard({
                       )
                     : ''
                 }
-                onChange={(event) =>
+                onInput={(event) =>
                   onScuChange(
                     view.contract.missionId,
                     leg.dropoffObjectiveId,
@@ -103,11 +103,11 @@ function ContractCard({
             <span class="visually-hidden">{t('contractReward')}</span>
             <input
               class="input mono"
-              style={{ width: 110, color: 'var(--accent-text)' }}
+              style={{ width: 150, color: 'var(--accent-text)' }}
               inputMode="numeric"
               placeholder={t('contractRewardPlaceholder')}
               value={view.rewardAuec === null ? '' : String(view.rewardAuec)}
-              onChange={(event) =>
+              onInput={(event) =>
                 onRewardChange(view.contract.missionId, readPositiveNumber(event.currentTarget.value))
               }
             />

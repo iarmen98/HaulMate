@@ -1,5 +1,6 @@
 import { describeLocationCode, describeSystemFromContractName } from '../data/places';
 import type { Place } from '../data/places';
+import { findBodyPosition } from '../data/quantum-travel';
 import { findShipModel } from '../data/ships';
 import { readBaseTaskId } from '../routing';
 import type { CargoTask, RouteRequest, Stop, TravelTiming } from '../routing';
@@ -46,6 +47,7 @@ export function describeStop(place: Place): Stop {
     placeKey: place.name,
     bodyKey: place.bodyId ?? `place:${place.name}`,
     systemKey: place.systemId ?? 'unknown',
+    position: findBodyPosition(place.systemId, place.bodyId),
   };
 }
 

@@ -9,12 +9,15 @@ import { usePlanner } from './hooks/use-planner';
 
 const MAX_UPCOMING_STOPS = 4;
 
-function describeOverlayHop(hop: HopKind, systemKey: string, t: Translate): string {
+function describeOverlayHop(hop: HopKind, systemKey: string, travelMs: number, t: Translate): string {
   switch (hop) {
     case 'jump':
       return t('overlayJumpTo', { system: formatSystemName(systemKey) ?? systemKey });
     case 'quantum':
-      return t('routeHopQuantum');
+      return t('routeHopMinutes', {
+        label: t('routeHopQuantum'),
+        minutes: Math.max(1, Math.round(travelMs / 60_000)),
+      });
     case 'local':
       return t('routeHopLocal');
     case 'none':
@@ -94,7 +97,7 @@ export function Overlay() {
                   <span class="overlay-step">{index + 2}</span>
                   <span class="overlay-step-name">{planner.describeStopName(visit.stop.placeKey)}</span>
                   <span class={`mono overlay-small ${visit.hop === 'jump' ? 'load' : ''}`}>
-                    {describeOverlayHop(visit.hop, visit.stop.systemKey, t)}
+                    {describeOverlayHop(visit.hop, visit.stop.systemKey, visit.travelMs, t)}
                   </span>
                 </li>
               ))}

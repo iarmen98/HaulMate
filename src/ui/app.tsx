@@ -72,6 +72,7 @@ export function App() {
                   unknownScuCount={planner.unknownScuCount}
                   unknownPlaceCount={planner.unknownPlaceCount}
                   describeStopName={planner.describeStopName}
+                  quantumTargetBodyKey={planner.quantumTargetBodyKey}
                 />
                 <CargoChart
                   plan={plan}
