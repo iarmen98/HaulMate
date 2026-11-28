@@ -26,16 +26,29 @@ export function classifyHop(from: Stop | null, to: Stop): HopKind {
   return from.bodyKey === to.bodyKey ? 'local' : 'quantum';
 }
 
-export function measureHopMs(hop: HopKind, timing: TravelTiming): number {
-  switch (hop) {
+export function measureQuantumMs(from: Stop, to: Stop, timing: TravelTiming): number {
+  const hasModel = timing.quantumMsPerFuel > 0 && from.position && to.position;
+  if (!hasModel || !from.position || !to.position) {
+    return timing.quantumHopMs;
+  }
+  const [fromX, fromY, fromZ] = from.position;
+  const [toX, toY, toZ] = to.position;
+  return timing.quantumBaseMs + timing.quantumMsPerFuel * Math.hypot(fromX - toX, fromY - toY, fromZ - toZ);
+}
+
+export function measureTravelMs(from: Stop | null, to: Stop, timing: TravelTiming): number {
+  if (from === null) {
+    return 0;
+  }
+  switch (classifyHop(from, to)) {
     case 'none':
       return 0;
     case 'local':
-      return timing.localHopMs + timing.stopOverheadMs;
+      return timing.localHopMs;
     case 'quantum':
-      return timing.quantumHopMs + timing.stopOverheadMs;
+      return measureQuantumMs(from, to, timing);
     case 'jump':
-      return timing.quantumHopMs + timing.jumpMs + timing.stopOverheadMs;
+      return timing.quantumHopMs + timing.jumpMs;
   }
 }
 
@@ -48,7 +61,8 @@ export function measureMoveMs(
   if (from === null && isFirstMove) {
     return timing.stopOverheadMs;
   }
-  return measureHopMs(classifyHop(from, to), timing);
+  const hop = classifyHop(from, to);
+  return hop === 'none' ? 0 : measureTravelMs(from, to, timing) + timing.stopOverheadMs;
 }
 
 export function buildRouteModel(
