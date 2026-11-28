@@ -2,7 +2,7 @@
 
 **Hauling routes from your Star Citizen `Game.log`.**
 
-Haulmate reads your `Game.log` live while you play, picks up the hauling contracts you accept and works out the fastest order to load and deliver them without going over your ship's cargo capacity. It runs entirely in your browser: no installer, no account, and the log never leaves your PC.
+Haulmate reads your `Game.log` live while you play, picks up the hauling contracts you accept and works out the fastest order to load and deliver them without going over your ship's cargo capacity. It is a desktop app for Windows that runs next to the game: no account, and the log never leaves your PC.
 
 [Leer en español](README.es.md)
 
@@ -23,36 +23,37 @@ Haulmate reads your `Game.log` live while you play, picks up the hauling contrac
 
 Early development (`0.x`). The log format is undocumented and changes between patches, so expect rough edges. See [the project plan](docs/PLAN.md) for the roadmap.
 
-## Run it locally
+## Install
 
-Requirements: [Node.js](https://nodejs.org/) 20 or newer, and Chrome or Edge.
+Download `Haulmate-Setup-<version>.exe` from [Releases](https://github.com/iarmen98/HaulMate/releases) and run it. Builds are not code-signed yet, so Windows SmartScreen shows a warning: choose **More info → Run anyway**. Signing through SignPath Foundation is planned (see [ADR 3](docs/adr/0003-desktop-app-with-electron.md)).
+
+## Build from source
+
+Requirements: [Node.js](https://nodejs.org/) 20 or newer and pnpm (`corepack enable` or `npm install -g pnpm`).
 
 ```bash
 git clone https://github.com/iarmen98/HaulMate.git
 cd HaulMate
-corepack enable    # or: npm install -g pnpm
 pnpm install
-pnpm dev
+pnpm desktop     # build and open the desktop app
+pnpm package     # build the installer into release/
+pnpm dev         # web version in Chrome or Edge, for development
 ```
-
-Open the URL Vite prints (usually `http://localhost:5173`).
 
 ## How to use
 
-1. Click **Open game folder** and pick your `StarCitizen\LIVE` folder, for example `C:\Program Files\Roberts Space Industries\StarCitizen\LIVE`.
+1. Open Haulmate. It finds `StarCitizen\LIVE` on any drive by itself; if not, click **Open game folder** and pick it, for example `C:\Program Files\Roberts Space Industries\StarCitizen\LIVE`.
 2. Accept hauling contracts in game. They show up in Haulmate as they appear in the log.
 3. Pick your ship in **Settings** if Haulmate has not detected it, and follow the route.
 4. Confirm cargo when it is in your hold, and copy the next stop into the starmap search.
 
 The game does not log the SCU of every contract. When a contract card asks for it, copy the amount from your mobiGlas. Rewards are optional; add them to see the route payout and your earnings, since recent game builds no longer log payouts.
 
-No game at hand? Click **Try the demo**.
-
-If the browser refuses the folder, pick the `Game.log` file itself instead (no live updates in that mode, use **Reload** to read it again).
+In the web version, **Try the demo** loads a sample session, and **Open Game.log file** reads a log once when the browser cannot open the folder.
 
 ## Limitations
 
-- Live reading needs the File System Access API: Chrome or Edge on desktop.
+- Windows only for now. The web version needs Chrome or Edge for live reading.
 - Only English game text is recognised for now.
 - Contracts accepted before the current game launch are in older logs and are not picked up.
 - Pickups are named from places Haulmate has seen before; new ones show as "Unknown pickup".

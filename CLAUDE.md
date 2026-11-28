@@ -1,6 +1,6 @@
 # Haulmate
 
-Static web app that reads the Star Citizen `Game.log` in the browser and plans the best hauling route. Unofficial fan project.
+Windows desktop app (Electron) that reads the Star Citizen `Game.log` and plans the best hauling route. The same UI also runs as a web page. Unofficial fan project.
 
 ## Read first
 
@@ -14,7 +14,7 @@ Work one phase at a time, as listed in `docs/PLAN.md`. Do not start the next pha
 
 ## Stack
 
-TypeScript (strict, `noUncheckedIndexedAccess`), Vite, Preact, Vitest, fast-check, ESLint (typescript-eslint), Prettier, pnpm, lefthook.
+TypeScript (strict, `noUncheckedIndexedAccess`), Vite, Preact, Electron + electron-builder (`desktop/`, CommonJS), Vitest, fast-check, ESLint (typescript-eslint), Prettier, pnpm, lefthook.
 
 ## Commands
 
@@ -25,6 +25,8 @@ pnpm lint
 pnpm typecheck
 pnpm test
 pnpm build
+pnpm desktop   # build and open the desktop app
+pnpm package   # NSIS installer in release/
 ```
 
 The pre-commit hook runs `lint`, `typecheck` and `test`. Every change must pass all four checks before it is committed.
@@ -40,7 +42,8 @@ The pre-commit hook runs `lint`, `typecheck` and `test`. Every change must pass 
 - The route solver runs in a Web Worker.
 - Only the `Game.log` is read. Never read game memory, inject into the game, capture the screen, or send input to the game.
 - No CIG/RSI logos or images. Keep the fan-project notice in the README and the UI footer.
-- Nothing leaves the user's browser: no analytics, no network calls except loading bundled static data.
+- Nothing leaves the user's machine: no analytics, no network calls except loading bundled static data.
+- The Electron renderer stays sandboxed; the preload exposes only folder selection and log chunks.
 - No GitHub Actions until phase 5.
 - Log fixtures in `tests/fixtures/` must be anonymised: replace other players' names and IDs.
 

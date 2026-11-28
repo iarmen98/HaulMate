@@ -1,6 +1,6 @@
 # Privacy
 
-Haulmate processes your `Game.log` **in your browser only**.
+Haulmate processes your `Game.log` **on your PC only**, in the desktop app or in your browser.
 
 - The log never leaves your PC. There is no server, no account, no analytics and no tracking.
 - The app makes no network requests except loading its own static files.
