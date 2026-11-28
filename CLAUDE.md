@@ -43,7 +43,8 @@ The pre-commit hook runs `lint`, `typecheck` and `test`. Every change must pass 
 - Only the `Game.log` is read. Never read game memory, inject into the game, capture the screen, or send input to the game.
 - No CIG/RSI logos or images. Keep the fan-project notice in the README and the UI footer.
 - Nothing leaves the user's machine: no analytics, no network calls except loading bundled static data.
-- The Electron renderer stays sandboxed; the preload exposes only folder selection and log chunks.
+- The Electron renderer stays sandboxed; the preload exposes only folder selection, log chunks, overlay toggling and the hotkey event.
+- Global hotkeys only listen; they never send input to the game.
 - No GitHub Actions until phase 5.
 - Log fixtures in `tests/fixtures/` must be anonymised: replace other players' names and IDs.
 

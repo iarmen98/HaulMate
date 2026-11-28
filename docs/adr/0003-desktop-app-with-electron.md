@@ -23,4 +23,5 @@ The machine used for development has Node.js but no Rust toolchain or Visual Stu
 - No permission prompt and no browser needed; the game folder is found automatically.
 - The installer is about 120 MB instead of about 10 MB with Tauri.
 - Windows SmartScreen warns on the unsigned installer until signing is in place.
-- Phase 5 (CI) becomes a prerequisite for signing. Phase 6 keeps the transparent overlay as its remaining scope.
+- Phase 5 (CI) becomes a prerequisite for signing.
+- The in-game overlay from phase 6 becomes possible in the same app: a second transparent, click-through, always-on-top window that runs the same planner and reads the log on its own. It needs the game in borderless window mode.
