@@ -19,11 +19,17 @@ export interface HaulingSession {
   isLoading: boolean;
   error: string | null;
   isLiveSupported: boolean;
+  isDesktop: boolean;
+  gameFolderPath: string | null;
   connectFolder(): Promise<void>;
   reconnect(): Promise<void>;
   openFile(): Promise<void>;
   startDemo(): void;
   disconnect(): Promise<void>;
+}
+
+function getDesktopBridge(): HaulmateDesktopBridge | null {
+  return typeof window === 'undefined' ? null : (window.haulmateDesktop ?? null);
 }
 
 function isAbortError(error: unknown): boolean {
@@ -37,6 +43,8 @@ export function useHaulingSession(): HaulingSession {
   const [error, setError] = useState<string | null>(null);
   const workerRef = useRef<Worker | null>(null);
   const savedFolderRef = useRef<FileSystemDirectoryHandle | null>(null);
+  const [gameFolderPath, setGameFolderPath] = useState<string | null>(null);
+  const desktop = getDesktopBridge();
 
   const getWorker = useCallback((): Worker => {
     if (workerRef.current) {
@@ -81,8 +89,49 @@ export function useHaulingSession(): HaulingSession {
     [send],
   );
 
+  const followDesktopFolder = useCallback(async (folder: string) => {
+    const bridge = getDesktopBridge();
+    if (!bridge) {
+      return;
+    }
+    setError(null);
+    setIsLoading(true);
+    const result = await bridge.follow(folder);
+    if (result.status === 'ok') {
+      setGameFolderPath(result.folder);
+      setMode('live');
+    } else {
+      setIsLoading(false);
+      setError('errorNoGameLog');
+    }
+  }, []);
+
   useEffect(() => {
-    if (!isFolderAccessSupported()) {
+    const bridge = getDesktopBridge();
+    if (!bridge) {
+      return;
+    }
+    const worker = getWorker();
+    const removeChunkListener = bridge.onChunk((chunk) => {
+      const request: LogWorkerRequest = { type: 'appendText', text: chunk.text, restarted: chunk.restarted };
+      worker.postMessage(request);
+    });
+    const removeErrorListener = bridge.onError((message) => setError(message));
+    void bridge.getInitialFolder().then((folder) => {
+      if (folder) {
+        void followDesktopFolder(folder);
+      }
+    });
+    return () => {
+      removeChunkListener();
+      removeErrorListener();
+      worker.terminate();
+      workerRef.current = null;
+    };
+  }, [getWorker, followDesktopFolder]);
+
+  useEffect(() => {
+    if (getDesktopBridge() || !isFolderAccessSupported()) {
       return;
     }
     void loadFolderHandle().then(async (folder) => {
@@ -104,8 +153,19 @@ export function useHaulingSession(): HaulingSession {
     state,
     isLoading,
     error,
-    isLiveSupported: isFolderAccessSupported(),
+    isLiveSupported: desktop !== null || isFolderAccessSupported(),
+    isDesktop: desktop !== null,
+    gameFolderPath,
     async connectFolder() {
+      if (desktop) {
+        const result = await desktop.pickFolder();
+        if (result.status === 'ok') {
+          await followDesktopFolder(result.folder);
+        } else if (result.status === 'noGameLog') {
+          setError('errorNoGameLog');
+        }
+        return;
+      }
       try {
         const folder = await pickGameFolder();
         if (!(await ensureReadPermission(folder))) {
@@ -146,7 +206,12 @@ export function useHaulingSession(): HaulingSession {
     async disconnect() {
       send({ type: 'stop' });
       savedFolderRef.current = null;
-      await forgetFolderHandle();
+      setGameFolderPath(null);
+      if (desktop) {
+        await desktop.stop();
+      } else {
+        await forgetFolderHandle();
+      }
       setState(INITIAL_HAULING_STATE);
       setMode('idle');
     },

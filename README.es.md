@@ -2,7 +2,7 @@
 
 **Rutas de transporte de carga a partir de tu `Game.log` de Star Citizen.**
 
-Haulmate lee tu `Game.log` en directo mientras juegas, detecta los contratos de carga que aceptas y calcula el orden más rápido para cargar y entregar sin pasarte de la capacidad de tu nave. Funciona entero en tu navegador: sin instalador, sin cuenta, y el log nunca sale de tu PC.
+Haulmate lee tu `Game.log` en directo mientras juegas, detecta los contratos de carga que aceptas y calcula el orden más rápido para cargar y entregar sin pasarte de la capacidad de tu nave. Es una app de escritorio para Windows que funciona junto al juego: sin cuenta, y el log nunca sale de tu PC.
 
 [Read in English](README.md)
 
@@ -23,36 +23,37 @@ Haulmate lee tu `Game.log` en directo mientras juegas, detecta los contratos de 
 
 Desarrollo temprano (`0.x`). El formato del log no está documentado y cambia entre parches. Consulta [el plan del proyecto](docs/PLAN.md).
 
-## Ejecutarlo en local
+## Instalar
 
-Requisitos: [Node.js](https://nodejs.org/) 20 o superior, y Chrome o Edge.
+Descarga `Haulmate-Setup-<versión>.exe` de [Releases](https://github.com/iarmen98/HaulMate/releases) y ejecútalo. Aún no está firmado, así que Windows SmartScreen mostrará un aviso: elige **Más información → Ejecutar de todas formas**. La firma con SignPath Foundation está prevista (ver [ADR 3](docs/adr/0003-desktop-app-with-electron.md)).
+
+## Compilar desde el código
+
+Requisitos: [Node.js](https://nodejs.org/) 20 o superior y pnpm (`corepack enable` o `npm install -g pnpm`).
 
 ```bash
 git clone https://github.com/iarmen98/HaulMate.git
 cd HaulMate
-corepack enable    # o: npm install -g pnpm
 pnpm install
-pnpm dev
+pnpm desktop     # compila y abre la app de escritorio
+pnpm package     # genera el instalador en release/
+pnpm dev         # versión web en Chrome o Edge, para desarrollo
 ```
-
-Abre la URL que muestra Vite (normalmente `http://localhost:5173`).
 
 ## Cómo se usa
 
-1. Pulsa **Abrir carpeta del juego** y elige tu carpeta `StarCitizen\LIVE`, por ejemplo `C:\Program Files\Roberts Space Industries\StarCitizen\LIVE`.
+1. Abre Haulmate. Encuentra `StarCitizen\LIVE` en cualquier unidad por sí sola; si no, pulsa **Abrir carpeta del juego** y elígela, por ejemplo `C:\Program Files\Roberts Space Industries\StarCitizen\LIVE`.
 2. Acepta contratos de carga en el juego. Aparecen en Haulmate según llegan al log.
 3. Elige tu nave en **Ajustes** si Haulmate no la ha detectado y sigue la ruta.
 4. Confirma la carga cuando esté en la bodega y copia la siguiente parada en el buscador del mapa estelar.
 
 El juego no registra los SCU de todos los contratos. Cuando una tarjeta te los pida, cópialos de tu mobiGlas. Las recompensas son opcionales; añádelas para ver el pago de la ruta y tus ganancias, ya que las versiones recientes del juego no registran los pagos.
 
-¿Sin el juego a mano? Pulsa **Probar la demo**.
-
-Si el navegador no deja abrir la carpeta, elige el propio archivo `Game.log` (sin actualización en directo; usa **Recargar** para leerlo de nuevo).
+En la versión web, **Probar la demo** carga una sesión de ejemplo y **Abrir archivo Game.log** lee un log una vez cuando el navegador no puede abrir la carpeta.
 
 ## Limitaciones
 
-- La lectura en directo necesita la File System Access API: Chrome o Edge de escritorio.
+- De momento solo Windows. La versión web necesita Chrome o Edge para la lectura en directo.
 - De momento solo se reconoce el texto del juego en inglés.
 - Los contratos aceptados antes del arranque actual del juego están en logs anteriores y no se detectan.
 - Las recogidas se nombran a partir de lugares ya vistos; los nuevos aparecen como "Recogida desconocida".
