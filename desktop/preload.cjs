@@ -10,6 +10,13 @@ contextBridge.exposeInMainWorld('haulmateDesktop', {
     ipcRenderer.on('log:chunk', handler);
     return () => ipcRenderer.removeListener('log:chunk', handler);
   },
+  toggleOverlay: () => ipcRenderer.invoke('overlay:toggle'),
+  getHotkeys: () => ipcRenderer.invoke('overlay:hotkeys'),
+  onConfirmNextStop: (listener) => {
+    const handler = () => listener();
+    ipcRenderer.on('hotkey:confirm-loaded', handler);
+    return () => ipcRenderer.removeListener('hotkey:confirm-loaded', handler);
+  },
   onError: (listener) => {
     const handler = (_event, message) => listener(message);
     ipcRenderer.on('log:error', handler);
