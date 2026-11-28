@@ -12,3 +12,4 @@ Thumbs.db
 Game.log
 logbackups/
 .claude/settings.local.json
+release/

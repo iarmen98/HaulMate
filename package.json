@@ -2,10 +2,11 @@
   "name": "haulmate",
   "version": "0.1.0",
   "private": true,
-  "description": "Hauling routes from your Star Citizen Game.log",
+  "description": "Desktop hauling planner that reads your Star Citizen Game.log",
   "license": "MIT",
   "author": "Armen",
   "type": "module",
+  "main": "desktop/main.cjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/iarmen98/HaulMate.git"
@@ -24,7 +25,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build",
-    "prepare": "lefthook install"
+    "prepare": "lefthook install",
+    "desktop": "vite build && electron .",
+    "package": "vite build && electron-builder --win nsis",
+    "render-icon": "electron scripts/render-icon.cjs"
   },
   "dependencies": {
     "preact": "^11.2.0"
@@ -33,6 +37,8 @@
     "@eslint/js": "^10.0.1",
     "@preact/preset-vite": "^2.10.6",
     "@types/node": "24",
+    "electron": "^45.5.0",
+    "electron-builder": "^26.18.0",
     "eslint": "^10.16.0",
     "fast-check": "^4.11.0",
     "globals": "^17.14.0",
@@ -42,5 +48,41 @@
     "typescript-eslint": "^8.74.0",
     "vite": "^8.4.0",
     "vitest": "^5.1.2"
+  },
+  "build": {
+    "appId": "io.github.iarmen98.haulmate",
+    "productName": "Haulmate",
+    "copyright": "Copyright (c) 2026 Armen",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "desktop/**/*",
+      "package.json",
+      "!**/*.map"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "desktop/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Haulmate",
+      "artifactName": "Haulmate-Setup-${version}.${ext}"
+    }
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron",
+      "esbuild",
+      "lefthook"
+    ]
   }
 }

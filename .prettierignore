@@ -3,3 +3,4 @@ coverage
 pnpm-lock.yaml
 docs/design
 tests/fixtures
+release

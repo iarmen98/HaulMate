@@ -3,7 +3,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', 'coverage', 'docs/design'] },
+  { ignores: ['dist', 'coverage', 'docs/design', 'release'] },
   js.configs.recommended,
   ...tseslint.configs.strict,
   {
@@ -18,6 +18,11 @@ export default tseslint.config(
       eqeqeq: ['error', 'always'],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
     },
+  },
+  {
+    files: ['desktop/**/*.cjs', 'scripts/**/*.cjs'],
+    languageOptions: { sourceType: 'commonjs', globals: { ...globals.node } },
+    rules: { '@typescript-eslint/no-require-imports': 'off' },
   },
   {
     files: ['src/parser/**', 'src/state/**', 'src/routing/**'],
