@@ -1,4 +1,5 @@
 import { parseRecord } from '../parser/parse-record';
+import { RecordSplitter } from '../parser/record-splitter';
 import type { HaulmateEvent } from '../parser/events';
 import { createFileHandleSource, createFileSource, createTextSource } from './file-handle-source';
 import { LogFollower } from './log-follower';
@@ -8,6 +9,7 @@ export type LogWorkerRequest =
   | { type: 'follow'; handle: FileSystemFileHandle }
   | { type: 'readFile'; file: File }
   | { type: 'readText'; text: string }
+  | { type: 'appendText'; text: string; restarted: boolean }
   | { type: 'stop' };
 
 export type LogWorkerResponse =
@@ -22,6 +24,8 @@ const scope = self as unknown as {
 };
 
 let runId = 0;
+const pushedSplitter = new RecordSplitter();
+let isFirstPush = true;
 
 function parseRecords(records: readonly string[]): HaulmateEvent[] {
   const events: HaulmateEvent[] = [];
@@ -68,8 +72,23 @@ async function follow(source: LogSource, currentRun: number): Promise<void> {
   }
 }
 
+function appendText(text: string, restarted: boolean): void {
+  if (restarted) {
+    pushedSplitter.reset();
+  }
+  const events = parseRecords(pushedSplitter.push(text));
+  if (events.length > 0 || restarted) {
+    scope.postMessage({ type: 'events', events, restarted, isInitialRead: isFirstPush });
+    isFirstPush = false;
+  }
+}
+
 scope.addEventListener('message', (message) => {
   const request = message.data;
+  if (request.type === 'appendText') {
+    appendText(request.text, request.restarted);
+    return;
+  }
   runId += 1;
   const currentRun = runId;
   const run = (): Promise<void> => {
@@ -81,6 +100,8 @@ scope.addEventListener('message', (message) => {
       case 'readText':
         return readOnce(createTextSource(request.text), currentRun);
       case 'stop':
+        pushedSplitter.reset();
+        isFirstPush = true;
         return Promise.resolve();
     }
   };

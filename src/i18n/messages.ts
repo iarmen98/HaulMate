@@ -19,6 +19,9 @@ const en = {
   connectFolder: 'Open game folder',
   connectFile: 'Open Game.log file',
   connectDemo: 'Try the demo',
+  connectDesktopHint:
+    'Haulmate looks for the game on every drive when it starts. Pick the folder if it was not found.',
+  followingFolder: 'Reading {path}',
   connectUnsupported:
     'Live reading needs Chrome or Edge on desktop. You can still open a Game.log file once.',
   reconnectTitle: 'Reconnect to your game folder',
@@ -123,6 +126,9 @@ const es: Record<MessageKey, string> = {
   connectFolder: 'Abrir carpeta del juego',
   connectFile: 'Abrir archivo Game.log',
   connectDemo: 'Probar la demo',
+  connectDesktopHint:
+    'Haulmate busca el juego en todas las unidades al arrancar. Elige la carpeta si no la ha encontrado.',
+  followingFolder: 'Leyendo {path}',
   connectUnsupported:
     'La lectura en directo necesita Chrome o Edge de escritorio. Aun así puedes abrir un Game.log una vez.',
   reconnectTitle: 'Vuelve a conectar la carpeta del juego',

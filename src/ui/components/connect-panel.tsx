@@ -31,18 +31,23 @@ export function ConnectPanel({ session }: ConnectPanelProps) {
       <p>{t('connectBody')}</p>
       <p class="mono small-note">{t('connectHint')}</p>
       {!session.isLiveSupported && <p class="warning">{t('connectUnsupported')}</p>}
+      {session.isDesktop && <p class="small-note">{t('connectDesktopHint')}</p>}
       <div class="connect-actions">
         {session.isLiveSupported && (
           <button class="button primary" onClick={() => void session.connectFolder()}>
             {t('connectFolder')}
           </button>
         )}
-        <button class="button" onClick={() => void session.openFile()}>
-          {t('connectFile')}
-        </button>
-        <button class="button" onClick={() => session.startDemo()}>
-          {t('connectDemo')}
-        </button>
+        {!session.isDesktop && (
+          <>
+            <button class="button" onClick={() => void session.openFile()}>
+              {t('connectFile')}
+            </button>
+            <button class="button" onClick={() => session.startDemo()}>
+              {t('connectDemo')}
+            </button>
+          </>
+        )}
       </div>
     </section>
   );

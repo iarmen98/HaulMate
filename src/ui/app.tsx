@@ -282,6 +282,11 @@ export function App() {
                     {t('disconnect')}
                   </button>
                 </div>
+                {session.gameFolderPath && (
+                  <p class="small-note mono" style={{ margin: 0, overflowWrap: 'anywhere' }}>
+                    {t('followingFolder', { path: session.gameFolderPath })}
+                  </p>
+                )}
               </div>
             </div>
           </>
