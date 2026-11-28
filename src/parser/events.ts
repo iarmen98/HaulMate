@@ -89,6 +89,28 @@ export interface QuantumDestinationSelected extends EventBase {
   pointId: string;
 }
 
+export interface ObjectiveAreaEntered extends EventBase {
+  type: 'ObjectiveAreaEntered';
+  missionId: string;
+  objectiveId: string;
+}
+
+export interface ObjectiveAreaLeft extends EventBase {
+  type: 'ObjectiveAreaLeft';
+  missionId: string;
+  objectiveId: string;
+}
+
+export interface ObjectiveProgressed extends EventBase {
+  type: 'ObjectiveProgressed';
+  missionId: string;
+  objectiveId: string;
+}
+
+export interface FreightElevatorUsed extends EventBase {
+  type: 'FreightElevatorUsed';
+}
+
 export interface UnknownHaulingLineFound extends EventBase {
   type: 'UnknownHaulingLineFound';
   text: string;
@@ -108,6 +130,10 @@ export type HaulmateEvent =
   | ShipBoarded
   | ShipLeft
   | QuantumDestinationSelected
+  | ObjectiveAreaEntered
+  | ObjectiveAreaLeft
+  | ObjectiveProgressed
+  | FreightElevatorUsed
   | UnknownHaulingLineFound;
 
 export type HaulmateEventType = HaulmateEvent['type'];

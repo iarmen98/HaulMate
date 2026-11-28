@@ -24,3 +24,4 @@ No bundled source of station coordinates in Gm is available yet, so true distanc
 - Routes are correct in order and capacity, but ETA is an estimate and the planner cannot prefer a near station over a far one in the same system.
 - Pickups at places never seen as a drop-off show as "Unknown pickup" until the table learns them.
 - Adding real coordinates later only changes the cost function in `src/routing/route-model.ts`.
+- Update 2026-11-28: quantum travel fuel estimates in the log now give distances between stations (`src/data/quantum-travel.json`). The hop model remains as the fallback for places without data.

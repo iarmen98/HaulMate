@@ -179,6 +179,24 @@ export function describeLocationCode(code: string): Place {
   };
 }
 
+export function describeQuantumTargetBody(pointId: string): string | null {
+  const pyro = /^(?:LOC_)?rs_ext_pyro(\d)_(leo|l\d)$/.exec(pointId);
+  if (pyro?.[1] && pyro[2]) {
+    return pyro[2] === 'leo' ? `pyro-${pyro[1]}` : `pyro-${pyro[1]}-${pyro[2]}`;
+  }
+  const stanton = /^(?:LOC_)?rs_ext_(hur|cru|arc|mic)-(leo|l\d)\d*$/.exec(pointId);
+  if (stanton?.[1] && stanton[2]) {
+    const planet = STANTON_BODY_CODES[stanton[1].toUpperCase()];
+    return stanton[2] === 'leo' ? `stanton-${planet}` : `stanton-${planet}-${stanton[2]}`;
+  }
+  const jumpPoint = /^(?:LOC_)?rs_ext_(pyro|stan|nyx)[a-z]*-(pyro|stan|nyx)[a-z]*_jp\d*$/.exec(pointId);
+  if (jumpPoint?.[1] && jumpPoint[2]) {
+    const names: Record<string, string> = { pyro: 'pyro', stan: 'stanton', nyx: 'nyx' };
+    return `${names[jumpPoint[1]]}-jp-${names[jumpPoint[2]]}`;
+  }
+  return null;
+}
+
 export function describeSystemFromContractName(contractName: string): string | null {
   const match = /(?:^|_)(Pyro|Stanton|Nyx)(?:\d|_|$)/.exec(contractName);
   return match?.[1]?.toLowerCase() ?? null;

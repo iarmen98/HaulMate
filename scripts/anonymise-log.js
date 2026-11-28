@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 const RECORD_START_PATTERN = /^<\d{4}-\d\d-\d\dT[^>]*> (?:\[|<)/;
 const QUEUE_DUMP_PATTERN = /^<\d{4}-\d\d-\d\dT[^>]*> {4}"/;
 const KEPT_RECORD_PATTERN =
-  /<(CLocalMissionPhaseMarker::CreateMarker|EndMission|MissionEnded|ObjectiveUpserted|ObjectiveComplete|AccountLoginCharacterStatus_Character)>|requested inventory for Location\[|joined channel '|left the channel '|as their destination/;
+  /<(CLocalMissionPhaseMarker::CreateMarker|EndMission|MissionEnded|ObjectiveUpserted|ObjectiveComplete|AccountLoginCharacterStatus_Character|CObjectiveMarkerComponent::RemovePlayer|CObjectiveMarkerComponent::AddPlayer|CEntityComponentFreightElevatorUIProvider::FillUnstowRequest)>|requested inventory for Location\[|joined channel '|left the channel '|as their destination/;
 const KEPT_NOTIFICATION_PATTERN =
   /SHUDEvent_OnNotification> Added notification "(Contract (Accepted|Complete|Failed|Withdrawn)|New Objective|Objective (Complete|Withdrawn|Failed)|Awarded \d[\d,]* aUEC|Entering Armistice|Leaving Armistice|Hangar Request Completed)/;
 
@@ -64,6 +64,10 @@ const output = records
       )
       .replace(/Player: ([\w-]+)\[/g, (_, name) => `Player: ${anonymisePlayer(name)}[`)
       .replace(/Player\[([\w-]+)\]/g, (_, name) => `Player[${anonymisePlayer(name)}]`)
+      .replace(
+        /(RemovePlayer|AddPlayer) - ([\w-]+)\[/g,
+        (_, action, name) => `${action} - ${anonymisePlayer(name)}[`,
+      )
       .replace(/(createdAt|updatedAt|geid|accountId) \d+/g, '$1 0')
       .replace(/(?<![\w.-])\d{9,}(?![\w.-])/g, anonymiseId);
   });

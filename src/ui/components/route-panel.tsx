@@ -14,18 +14,20 @@ interface RoutePanelProps {
   unknownScuCount: number;
   unknownPlaceCount: number;
   describeStopName(placeKey: string): string;
+  quantumTargetBodyKey: string | null;
 }
 
-function describeHop(hop: HopKind, t: Translate): string | null {
+export function describeHop(hop: HopKind, travelMs: number, t: Translate): string | null {
+  const minutes = Math.max(1, Math.round(travelMs / 60_000));
   switch (hop) {
     case 'none':
       return null;
     case 'local':
       return t('routeHopLocal');
     case 'quantum':
-      return t('routeHopQuantum');
+      return t('routeHopMinutes', { label: t('routeHopQuantum'), minutes });
     case 'jump':
-      return t('routeHopJump');
+      return t('routeHopMinutes', { label: t('routeHopJump'), minutes });
   }
 }
 
@@ -51,6 +53,7 @@ export function RoutePanel({
   unknownScuCount,
   unknownPlaceCount,
   describeStopName,
+  quantumTargetBodyKey,
 }: RoutePanelProps) {
   const { t } = useI18n();
   const visits = plan?.visits ?? [];
@@ -78,7 +81,9 @@ export function RoutePanel({
       {visits.length === 0 && <p class="small-note">{t('routeEmpty')}</p>}
       <ol class="steps" style={{ listStyle: 'none', margin: 0, padding: 0 }}>
         {visits.map((visit, index) => {
-          const hopLabel = describeHop(visit.hop, t);
+          const hopLabel = describeHop(visit.hop, visit.travelMs, t);
+          const isQuantumTarget =
+            index === 0 && quantumTargetBodyKey !== null && visit.stop.bodyKey === quantumTargetBodyKey;
           const isHere = index === 0 && visit.stop.placeKey === startPlaceKey;
           return (
             <li class={`step ${index === 0 ? 'current' : ''}`} key={`${visit.stop.placeKey}-${index}`}>
@@ -92,9 +97,12 @@ export function RoutePanel({
                   {isHere ? (
                     <span class="chip small">{t('routeYouAreHere')}</span>
                   ) : (
-                    hopLabel && (
-                      <span class={`chip small ${visit.hop === 'jump' ? 'accent' : ''}`}>{hopLabel}</span>
-                    )
+                    <span class="row-start" style={{ gap: 6 }}>
+                      {isQuantumTarget && <span class="chip small accent">{t('routeQuantumTarget')}</span>}
+                      {hopLabel && (
+                        <span class={`chip small ${visit.hop === 'jump' ? 'accent' : ''}`}>{hopLabel}</span>
+                      )}
+                    </span>
                   )}
                 </div>
                 {visit.unloads.map((amount) => (

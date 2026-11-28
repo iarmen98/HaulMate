@@ -62,6 +62,35 @@ These come with every contract and are the reliable source.
 - Hauling generators seen: `RedWind_Hauling`, `Covalex_Hauling`, `LingFamilyHauling_Hauling`, `VisitingIasi` (Iasi contracts with `HaulCargo` in the name).
 - Marker positions are relative to the body or station zone. **Confirmed** stable across sessions for the same place, so a position identifies a place. Haulmate keeps a table of positions seen at named drop-offs (`src/data/known-places.json`) to name pickups, which have no text. With the current table about 91 % of pickups resolve.
 
+## Progress at a stop
+
+**Confirmed** in sessions from builds 12122953 and 13220821:
+
+| Pattern                                                                                                                    | Event                  | Meaning                                                           |
+| -------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ----------------------------------------------------------------- |
+| `<CObjectiveMarkerComponent::RemovePlayer> … added to removed player list … OnDisconnect: 0, missionId[…], objectiveId[…]` | `ObjectiveAreaEntered` | The player reached the place of that objective (its marker hides) |
+| `<CObjectiveMarkerComponent::AddPlayer> … removed from removed player list …, missionId[…], objectiveId[…]`                | `ObjectiveAreaLeft`    | The player left that place                                        |
+| `<CEntityComponentFreightElevatorUIProvider::FillUnstowRequest>`                                                           | `FreightElevatorUsed`  | The player asked the freight elevator for cargo                   |
+| `<ObjectiveUpserted> … objective_id pickup_… - state MISSION_OBJECTIVE_STATE_INPROGRESS … flags=ShowInLog`                 | `ObjectiveProgressed`  | Cargo for that pickup was taken                                   |
+
+Haulmate marks a pickup as loaded when the player uses the freight elevator while at that pickup and then leaves, or when the game reports progress on it. Every pickup of a `Multi…ToSingle` contract is required (confirmed by the player). One logged contract completed without a recorded visit to one of its pickups, so a visit can go unlogged; the manual confirm covers that case.
+
+## Contract titles
+
+Build 13220821 adds tiers and reputation markup: `Contract Accepted:  Experienced | Stellar Medium Haul | to Ruin Station <EM4>[50/…/4000 Rep]</EM4>`. Haulmate drops the markup. The reward in aUEC is not logged anywhere.
+
+## Quantum travel
+
+**Confirmed:** selecting a destination logs the start, the target and the fuel estimate, and arrival is logged too:
+
+```text
+<CSCItemNavigation::CalculateRoute> Projected Start Location is Checkmate for route to destination rs_ext_pyro5_l2
+<CSCItemNavigation::CalculateRoute> Successfully calculated route to rs_ext_pyro5_l2 fuel estimate 1258120.250000
+<Quantum Drive Arrived - Arrived at Final Destination>
+```
+
+Fuel scales with distance and with the ship's drive. `scripts/learn-travel.js` normalises fuel per ship against a Crusader C2, takes the median per pair of places, rebuilds positions for each system from the measured pairs (median error 0.3 % in Pyro) and fits quantum time to fuel. The result is `src/data/quantum-travel.json`, which the route planner uses.
+
 ## Location, ship and travel
 
 | Pattern                                                                      | Event                        | Status    |

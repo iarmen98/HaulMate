@@ -1,6 +1,8 @@
 import { useEffect, useMemo } from 'preact/hooks';
 import { createI18n, detectLanguage } from '../../i18n/translate';
 import { DEFAULT_TRAVEL_TIMING, readBaseTaskId } from '../../routing';
+import { describeQuantumTargetBody } from '../../data/places';
+import { QUANTUM_TIMING } from '../../data/quantum-travel';
 import { isUnknownPlace } from '../../state/cargo-legs';
 import type { AppSettings } from '../components/settings-panel';
 import { formatPlace } from '../format';
@@ -93,7 +95,8 @@ export function usePlanner({ recordsHistory }: PlannerOptions) {
   );
   const capacity = resolveShipCapacity(state, settings);
   const currentPlace = resolveCurrentPlace(state);
-  const plan = useRoutePlan(buildRouteRequest(views, currentPlace, capacity, settings.timing));
+  const timing = { ...DEFAULT_TRAVEL_TIMING, ...settings.timing, ...QUANTUM_TIMING };
+  const plan = useRoutePlan(buildRouteRequest(views, currentPlace, capacity, timing));
   const legIndex = useMemo(() => indexLegsByTaskId(views), [views]);
   const earnings = useMemo(
     () => listSessionEarnings(state, logInputs.rewardsAuec),
@@ -191,6 +194,8 @@ export function usePlanner({ recordsHistory }: PlannerOptions) {
         .map((place) => place?.name),
     ).size,
     isConnected: session.mode === 'live' || session.mode === 'file' || session.mode === 'demo',
+    quantumTargetBodyKey:
+      state.quantumTargetId === null ? null : describeQuantumTargetBody(state.quantumTargetId),
     describeStopName: (placeKey: string) => placeNames.get(placeKey) ?? placeKey,
     setReward(missionId: string, rewardAuec: number | null) {
       updateLogInputs((current) => ({

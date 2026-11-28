@@ -1,6 +1,6 @@
 import { EXACT_NODE_LIMIT, solveExactly } from './exact-solver';
 import { solveHeuristically } from './heuristic-solver';
-import { buildRouteModel, classifyHop, measureMoveMs } from './route-model';
+import { buildRouteModel, classifyHop, measureMoveMs, measureTravelMs } from './route-model';
 import type { RouteModel } from './route-model';
 import type { CargoTask, RoutePlan, RouteRequest, RouteVisit, Stop } from './types';
 
@@ -64,6 +64,7 @@ function describeVisits(
             unloadedScu: 0,
             onboardScuAfter: 0,
             hop: classifyHop(previousStop, node.stop),
+            travelMs: measureTravelMs(previousStop, node.stop, request.timing),
             arrivalMs: 0,
           };
     if (visit !== last) {

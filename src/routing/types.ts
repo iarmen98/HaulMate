@@ -1,7 +1,10 @@
+export type Position = readonly [number, number, number];
+
 export interface Stop {
   placeKey: string;
   bodyKey: string;
   systemKey: string;
+  position?: Position | null;
 }
 
 export interface CargoTask {
@@ -14,6 +17,8 @@ export interface CargoTask {
 export interface TravelTiming {
   localHopMs: number;
   quantumHopMs: number;
+  quantumBaseMs: number;
+  quantumMsPerFuel: number;
   jumpMs: number;
   stopOverheadMs: number;
   handlingMsPerScu: number;
@@ -42,6 +47,7 @@ export interface RouteVisit {
   unloadedScu: number;
   onboardScuAfter: number;
   hop: HopKind;
+  travelMs: number;
   arrivalMs: number;
 }
 
@@ -61,6 +67,8 @@ export interface RoutePlan {
 export const DEFAULT_TRAVEL_TIMING: TravelTiming = {
   localHopMs: 4 * 60_000,
   quantumHopMs: 8 * 60_000,
+  quantumBaseMs: 0,
+  quantumMsPerFuel: 0,
   jumpMs: 15 * 60_000,
   stopOverheadMs: 4 * 60_000,
   handlingMsPerScu: 3_000,
